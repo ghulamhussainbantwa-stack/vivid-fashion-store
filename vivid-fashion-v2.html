@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIVID — Pakistan's Premier Fashion Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:#050505;color:#fff;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:#050505}
+::-webkit-scrollbar-thumb{background:linear-gradient(#FF2D78,#7B2FFF);border-radius:2px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes float{0%,100%{transform:translateY(0px)}50%{transform:translateY(-14px)}}
+@keyframes floatSlow{0%,100%{transform:translateY(0px) rotate(0deg)}50%{transform:translateY(-20px) rotate(3deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+@keyframes pulseBig{0%,100%{transform:scale(1);opacity:0.6}50%{transform:scale(1.15);opacity:1}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes spinSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(255,45,120,0.4),0 0 40px rgba(255,45,120,0.15)}50%{box-shadow:0 0 40px rgba(255,45,120,0.8),0 0 80px rgba(123,47,255,0.4),0 0 120px rgba(255,45,120,0.2)}}
+@keyframes glowPurple{0%,100%{box-shadow:0 0 20px rgba(123,47,255,0.4)}50%{box-shadow:0 0 50px rgba(123,47,255,0.9),0 0 100px rgba(123,47,255,0.3)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes orbit{0%{transform:rotate(0deg) translateX(120px) rotate(0deg)}100%{transform:rotate(360deg) translateX(120px) rotate(-360deg)}}
+@keyframes orbit2{0%{transform:rotate(180deg) translateX(90px) rotate(-180deg)}100%{transform:rotate(540deg) translateX(90px) rotate(-540deg)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
+@keyframes tilt3d{0%,100%{transform:perspective(800px) rotateX(8deg) rotateY(-12deg) translateY(0)}25%{transform:perspective(800px) rotateX(-4deg) rotateY(10deg) translateY(-12px)}50%{transform:perspective(800px) rotateX(6deg) rotateY(8deg) translateY(-8px)}75%{transform:perspective(800px) rotateX(-6deg) rotateY(-10deg) translateY(-14px)}}
+@keyframes tilt3d2{0%,100%{transform:perspective(800px) rotateX(-6deg) rotateY(10deg) translateY(0)}50%{transform:perspective(800px) rotateX(8deg) rotateY(-8deg) translateY(-16px)}}
+@keyframes tilt3d3{0%,100%{transform:perspective(800px) rotateX(4deg) rotateY(-6deg) translateY(-8px)}50%{transform:perspective(800px) rotateX(-8deg) rotateY(12deg) translateY(0)}}
+@keyframes particleDrift{0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0.8}100%{transform:translateY(-300px) translateX(80px) rotate(360deg);opacity:0}}
+@keyframes morphBlob{0%,100%{border-radius:60% 40% 30% 70% / 60% 30% 70% 40%}25%{border-radius:30% 60% 70% 40% / 50% 60% 30% 60%}50%{border-radius:50% 60% 30% 60% / 30% 40% 70% 50%}75%{border-radius:60% 30% 50% 60% / 40% 70% 30% 50%}}
+@keyframes hologram{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes bounce3d{0%,100%{transform:perspective(600px) rotateY(0deg) translateY(0)}50%{transform:perspective(600px) rotateY(180deg) translateY(-10px)}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes neonFlicker{0%,100%{opacity:1}92%{opacity:1}93%{opacity:0.8}94%{opacity:1}96%{opacity:0.6}97%{opacity:1}}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes diamondSpin{0%{transform:rotate(0deg) scale(1)}50%{transform:rotate(180deg) scale(1.1)}100%{transform:rotate(360deg) scale(1)}}
+@keyframes cardHover3d{0%,100%{transform:perspective(1000px) rotateX(5deg) rotateY(-8deg) translateZ(0)}50%{transform:perspective(1000px) rotateX(-3deg) rotateY(8deg) translateZ(20px)}}
+
+.page{animation:fadeIn 0.5s ease both}
+.hero-card-1{animation:tilt3d 5s ease-in-out infinite}
+.hero-card-2{animation:tilt3d2 6s ease-in-out infinite;animation-delay:-2s}
+.hero-card-3{animation:tilt3d3 7s ease-in-out infinite;animation-delay:-4s}
+.cat-card-3d:hover{transform:perspective(600px) rotateY(8deg) rotateX(-4deg) scale(1.03)!important}
+.logo-animated{animation:gradientShift 3s ease infinite;background-size:300% 300%}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useRef,useCallback}=React;
+
+const WA_NUMBER='923001234567';
+const WA_AUTO_MSG=encodeURIComponent("Hi! I just visited VIVID and I'm loving your collection 😍 Can you help me with my order?");
+
+function waCheckoutMsg(cart){
+  const items=cart.map(i=>`• ${i.name} (x${i.qty}) — Rs ${(i.price*i.qty).toLocaleString()}`).join('\n');
+  const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const msg=`Hi VIVID! I want to place this order:\n\n${items}\n\n*Total: Rs ${total.toLocaleString()}*\n\nPlease confirm availability and payment details. Thank you!`;
+  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+}
+
+const PAGE_THEMES={
+  home:{primary:'#FF2D78',secondary:'#7B2FFF',bg:'#050505',bg2:'#0d0d0d',accent:'#C8FF00'},
+  men:{primary:'#00C2FF',secondary:'#0077B6',bg:'#04080f',bg2:'#08121e',accent:'#90E0EF'},
+  women:{primary:'#FF6B9D',secondary:'#C77DFF',bg:'#0a050d',bg2:'#120b18',accent:'#FFD6E7'},
+  kids:{primary:'#FFD60A',secondary:'#FF6B35',bg:'#0a0800',bg2:'#130f00',accent:'#80FFDB'},
+  streetwear:{primary:'#39FF14',secondary:'#00FF88',bg:'#030303',bg2:'#080808',accent:'#CCFF00'},
+  accessories:{primary:'#D4A017',secondary:'#B8860B',bg:'#080600',bg2:'#100c00',accent:'#FFE08A'},
+  sale:{primary:'#FF4500',secondary:'#FF6B00',bg:'#0a0300',bg2:'#140600',accent:'#FFB347'},
+  luxury:{primary:'#C9A84C',secondary:'#A67C52',bg:'#060606',bg2:'#0d0d0d',accent:'#FFE5B4'},
+  shoes:{primary:'#7C3AED',secondary:'#5B21B6',bg:'#05040c',bg2:'#0a0818',accent:'#C4B5FD'},
+  newin:{primary:'#06D6A0',secondary:'#0CB8A0',bg:'#020c0a',bg2:'#04140f',accent:'#80FFDB'},
+};
+
+const PRODUCT_IMAGES={
+  m1:'https://images.unsplash.com/photo-1594938298603-c8148c4b7d9d?w=400&q=80',
+  m2:'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&q=80',
+  m3:'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&q=80',
+  m4:'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&q=80',
+  m5:'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80',
+  m6:'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?w=400&q=80',
+  m7:'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=400&q=80',
+  m8:'https://images.unsplash.com/photo-1544441893-675973e31985?w=400&q=80',
+  m9:'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80',
+  m10:'https://images.unsplash.com/photo-1618517048289-4e4f998e083f?w=400&q=80',
+  m11:'https://images.unsplash.com/photo-1591195853828-11db59a44f43?w=400&q=80',
+  m12:'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&q=80',
+  w1:'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&q=80',
+  w2:'https://images.unsplash.com/photo-1617922001439-4a2e6562f328?w=400&q=80',
+  w3:'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&q=80',
+  w4:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80',
+  w5:'https://images.unsplash.com/photo-1601379760883-1bb497a46073?w=400&q=80',
+  w6:'https://images.unsplash.com/photo-1603217040830-2943a4c07e4c?w=400&q=80',
+  w7:'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&q=80',
+  w8:'https://images.unsplash.com/photo-1548624313-0396c75e4b1a?w=400&q=80',
+  w9:'https://images.unsplash.com/photo-1566206091558-7f218b696731?w=400&q=80',
+  w10:'https://images.unsplash.com/photo-1606335192038-a0f7de2ce7a1?w=400&q=80',
+  w11:'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80',
+  w12:'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80',
+  k1:'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400&q=80',
+  k2:'https://images.unsplash.com/photo-1543701064-e47c1a0f1af0?w=400&q=80',
+  k3:'https://images.unsplash.com/photo-1560506840-ec148e82a604?w=400&q=80',
+  k4:'https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=400&q=80',
+  k5:'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80',
+  k6:'https://images.unsplash.com/photo-1485893086445-ed75865251e0?w=400&q=80',
+  k7:'https://images.unsplash.com/photo-1617114212870-8f8b1f340f58?w=400&q=80',
+  k8:'https://images.unsplash.com/photo-1536922246289-88c42f957773?w=400&q=80',
+  s1:'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&q=80',
+  s2:'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&q=80',
+  s3:'https://images.unsplash.com/photo-1547949003-9792a18a2601?w=400&q=80',
+  s4:'https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&q=80',
+  s5:'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&q=80',
+  s6:'https://images.unsplash.com/photo-1520975867077-ba96a6a3ed29?w=400&q=80',
+  s7:'https://images.unsplash.com/photo-1605908502724-9093a79a6413?w=400&q=80',
+  s8:'https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=400&q=80',
+  s9:'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&q=80',
+  s10:'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&q=80',
+  a1:'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80',
+  a2:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=80',
+  a3:'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=400&q=80',
+  a4:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80',
+  a5:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80',
+  a6:'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&q=80',
+  a7:'https://images.unsplash.com/photo-1556306535-38febf6a6dda?w=400&q=80',
+  a8:'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&q=80',
+  a9:'https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&q=80',
+  a10:'https://images.unsplash.com/photo-1521369909029-2afed882baee?w=400&q=80',
+  sl1:'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&q=80',
+  sl2:'https://images.unsplash.com/photo-1520975867077-ba96a6a3ed29?w=400&q=80',
+  sl3:'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&q=80',
+  sl4:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80',
+  sl5:'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&q=80',
+  sl6:'https://images.unsplash.com/photo-1548624313-0396c75e4b1a?w=400&q=80',
+  sl7:'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=400&q=80',
+  sl8:'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&q=80',
+  sl9:'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&q=80',
+  sl10:'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&q=80',
+  sl11:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=80',
+  sl12:'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80',
+  lx1:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80',
+  lx2:'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=400&q=80',
+  lx3:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80',
+  lx4:'https://images.unsplash.com/photo-1566206091558-7f218b696731?w=400&q=80',
+  lx5:'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80',
+  lx6:'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=400&q=80',
+  sh1:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80',
+  sh2:'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=400&q=80',
+  sh3:'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&q=80',
+  sh4:'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&q=80',
+  sh5:'https://images.unsplash.com/photo-1603487742131-4160ec999306?w=400&q=80',
+  sh6:'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&q=80',
+  sh7:'https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=400&q=80',
+  sh8:'https://images.unsplash.com/photo-1556048219-bb6978360b84?w=400&q=80',
+  sh9:'https://images.unsplash.com/photo-1605812860427-4024433a70fd?w=400&q=80',
+  sh10:'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400&q=80',
+  ni1:'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&q=80',
+  ni2:'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80',
+  ni3:'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&q=80',
+  ni4:'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80',
+  ni5:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80',
+  ni6:'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80',
+  ni7:'https://images.unsplash.com/photo-1601601392684-3e47955c5ff1?w=400&q=80',
+  ni8:'https://images.unsplash.com/photo-1617922001439-4a2e6562f328?w=400&q=80',
+};
+
+const ALL_PRODUCTS={
+  men:[
+    {id:'m1',name:'Oversized Blazer',price:12500,old:18000,tag:'new',colors:['#1a1a1a','#2c3e50','#8B7355'],rating:4.8,reviews:234,desc:'Premium wool blend, relaxed fit'},
+    {id:'m2',name:'Slim Fit Chinos',price:4800,old:6500,tag:'trending',colors:['#8B6914','#2c3e50','#1a1a1a'],rating:4.6,reviews:189,desc:'Stretch cotton, tapered leg'},
+    {id:'m3',name:'Linen Shirt',price:3200,old:null,tag:'new',colors:['#fff','#87CEEB','#F5DEB3'],rating:4.7,reviews:312,desc:'100% linen, breathable fabric'},
+    {id:'m4',name:'Cargo Pants',price:5500,old:7000,tag:'hot',colors:['#4a4a2a','#1a1a1a','#556B2F'],rating:4.5,reviews:156,desc:'Multi-pocket utility style'},
+    {id:'m5',name:'Puffer Vest',price:7800,old:10000,tag:'sale',colors:['#000','#1a3a5c','#2d4a2d'],rating:4.4,reviews:98,desc:'Lightweight, water-resistant'},
+    {id:'m6',name:'Denim Jacket',price:8900,old:12000,tag:'trending',colors:['#4169E1','#1a1a1a','#8B6914'],rating:4.9,reviews:421,desc:'Classic cut, vintage wash'},
+    {id:'m7',name:'Polo Shirt',price:2800,old:null,tag:'new',colors:['#fff','#000','#8B0000'],rating:4.6,reviews:267,desc:'Pique cotton, collar style'},
+    {id:'m8',name:'Track Jacket',price:6200,old:8500,tag:'hot',colors:['#000','#FF6B00','#1a3a5c'],rating:4.7,reviews:178,desc:'Athletic cut, zip-up style'},
+    {id:'m9',name:'Formal Suit',price:28000,old:38000,tag:'sale',colors:['#1a1a1a','#2c3e50','#4a3728'],rating:4.9,reviews:89,desc:'Italian cut, premium wool'},
+    {id:'m10',name:'Henley Tee',price:2200,old:null,tag:'new',colors:['#fff','#6B8E6B','#C0C0C0'],rating:4.5,reviews:345,desc:'Soft modal fabric, relaxed fit'},
+    {id:'m11',name:'Shorts',price:2500,old:3500,tag:'trending',colors:['#4a4a2a','#2c3e50','#8B6914'],rating:4.3,reviews:123,desc:'Lightweight summer shorts'},
+    {id:'m12',name:'Turtleneck',price:3800,old:null,tag:'new',colors:['#000','#1a1a1a','#8B0000'],rating:4.7,reviews:201,desc:'Fine knit, slim silhouette'},
+  ],
+  women:[
+    {id:'w1',name:'Floral Maxi Dress',price:8500,old:12000,tag:'new',colors:['#FFB6C1','#FF69B4','#DDA0DD'],rating:4.9,reviews:567,desc:'Flowing chiffon, romantic print'},
+    {id:'w2',name:'Crop Blazer',price:9800,old:14000,tag:'trending',colors:['#fff','#F5DEB3','#FFB6C1'],rating:4.7,reviews:234,desc:'Power dressing, tailored fit'},
+    {id:'w3',name:'Wide Leg Jeans',price:6200,old:8000,tag:'hot',colors:['#4169E1','#000','#8B6914'],rating:4.8,reviews:389,desc:'High waist, wide leg silhouette'},
+    {id:'w4',name:'Satin Slip Dress',price:7200,old:9500,tag:'sale',colors:['#C0C0C0','#FFB6C1','#000'],rating:4.9,reviews:445,desc:'Bias cut, elegant drape'},
+    {id:'w5',name:'Knit Cardigan',price:4500,old:6000,tag:'new',colors:['#F5DEB3','#FFB6C1','#C0C0C0'],rating:4.6,reviews:312,desc:'Oversized, chunky knit'},
+    {id:'w6',name:'Mini Skirt',price:3200,old:null,tag:'trending',colors:['#000','#8B0000','#1a1a2e'],rating:4.5,reviews:278,desc:'A-line, above the knee'},
+    {id:'w7',name:'Corset Top',price:4800,old:6500,tag:'hot',colors:['#000','#8B0000','#1a3a5c'],rating:4.8,reviews:456,desc:'Structured boning, lace-up back'},
+    {id:'w8',name:'Trench Coat',price:18500,old:25000,tag:'sale',colors:['#D2691E','#000','#F5DEB3'],rating:4.9,reviews:189,desc:'Classic belted, water-resistant'},
+    {id:'w9',name:'Ruched Dress',price:5600,old:7800,tag:'new',colors:['#FF69B4','#DDA0DD','#FFB6C1'],rating:4.7,reviews:323,desc:'Bodycon, stretchy fabric'},
+    {id:'w10',name:'Linen Co-ord',price:9200,old:12000,tag:'trending',colors:['#F5DEB3','#D2B48C','#fff'],rating:4.8,reviews:267,desc:'Matching set, summer ready'},
+    {id:'w11',name:'Denim Jacket',price:7800,old:null,tag:'hot',colors:['#4169E1','#000','#8B6914'],rating:4.6,reviews:198,desc:'Cropped, distressed finish'},
+    {id:'w12',name:'Pleated Pants',price:5800,old:8000,tag:'sale',colors:['#000','#1a3a5c','#2c2c2c'],rating:4.5,reviews:145,desc:'High waist, wide pleats'},
+  ],
+  kids:[
+    {id:'k1',name:'Rainbow Hoodie',price:2800,old:3500,tag:'new',colors:['#FF6B35','#FFD60A','#06D6A0'],rating:4.9,reviews:234,desc:'Soft fleece, bright colors'},
+    {id:'k2',name:'Denim Overalls',price:3200,old:null,tag:'trending',colors:['#4169E1','#87CEEB','#fff'],rating:4.8,reviews:189,desc:'Adjustable straps, roomy fit'},
+    {id:'k3',name:'Printed T-Shirt',price:1200,old:1800,tag:'hot',colors:['#FF6B35','#FFD60A','#FF69B4'],rating:4.7,reviews:312,desc:'Fun prints, soft cotton'},
+    {id:'k4',name:'Jogger Set',price:3800,old:5000,tag:'sale',colors:['#06D6A0','#FFD60A','#FF6B35'],rating:4.6,reviews:156,desc:'Matching top and bottom'},
+    {id:'k5',name:'Party Dress',price:4200,old:6000,tag:'new',colors:['#FF69B4','#DDA0DD','#FFD60A'],rating:4.9,reviews:98,desc:'Tulle skirt, sparkly top'},
+    {id:'k6',name:'School Uniform',price:2500,old:null,tag:'trending',colors:['#fff','#1a3a5c','#4169E1'],rating:4.5,reviews:445,desc:'Durable fabric, easy care'},
+    {id:'k7',name:'Fleece Jacket',price:3500,old:4500,tag:'hot',colors:['#FF6B35','#06D6A0','#FFD60A'],rating:4.7,reviews:201,desc:'Zip-up, cozy fleece'},
+    {id:'k8',name:'Cartoon Pyjamas',price:2200,old:3000,tag:'sale',colors:['#FFD60A','#FF6B35','#06D6A0'],rating:4.8,reviews:267,desc:'Super soft, fun characters'},
+  ],
+  streetwear:[
+    {id:'s1',name:'Graphic Hoodie',price:5500,old:7500,tag:'new',colors:['#000','#1a1a1a','#39FF14'],rating:4.8,reviews:567,desc:'Bold print, oversized fit'},
+    {id:'s2',name:'Cargo Joggers',price:4800,old:6000,tag:'trending',colors:['#000','#4a4a2a','#1a1a1a'],rating:4.7,reviews:423,desc:'Multi-pocket, tapered leg'},
+    {id:'s3',name:'Puffer Jacket',price:12000,old:16000,tag:'hot',colors:['#000','#1a1a1a','#FF6B00'],rating:4.9,reviews:312,desc:'Quilted, oversized silhouette'},
+    {id:'s4',name:'Track Suit',price:9500,old:13000,tag:'sale',colors:['#000','#1a3a5c','#39FF14'],rating:4.6,reviews:234,desc:'Full set, retro sport style'},
+    {id:'s5',name:'Boxy Tee',price:2800,old:null,tag:'new',colors:['#fff','#000','#39FF14'],rating:4.8,reviews:489,desc:'Heavyweight cotton, boxy cut'},
+    {id:'s6',name:'Bomber Jacket',price:11000,old:15000,tag:'trending',colors:['#000','#556B2F','#4169E1'],rating:4.7,reviews:356,desc:'Satin finish, ribbed cuffs'},
+    {id:'s7',name:'Windbreaker',price:8500,old:11000,tag:'hot',colors:['#FF6B00','#000','#1a3a5c'],rating:4.5,reviews:178,desc:'Lightweight, packable'},
+    {id:'s8',name:'Baggy Jeans',price:6200,old:8500,tag:'sale',colors:['#4169E1','#000','#1a1a1a'],rating:4.8,reviews:634,desc:'Y2K inspired, wide leg'},
+    {id:'s9',name:'Baseball Cap',price:2200,old:null,tag:'new',colors:['#000','#fff','#FF6B00'],rating:4.6,reviews:789,desc:'6-panel, structured brim'},
+    {id:'s10',name:'Chain Pants',price:5800,old:8000,tag:'trending',colors:['#000','#C0C0C0','#1a1a1a'],rating:4.7,reviews:234,desc:'Side chain detail, slim fit'},
+  ],
+  accessories:[
+    {id:'a1',name:'Leather Tote Bag',price:8500,old:12000,tag:'new',colors:['#000','#8B6914','#D2691E'],rating:4.8,reviews:234,desc:'Full grain leather, spacious'},
+    {id:'a2',name:'Gold Chain Set',price:4200,old:6000,tag:'trending',colors:['#D4A017','#FFD700','#B8860B'],rating:4.9,reviews:456,desc:'18k gold plated, layered'},
+    {id:'a3',name:'Silk Scarf',price:2800,old:null,tag:'hot',colors:['#FF69B4','#DDA0DD','#F5DEB3'],rating:4.7,reviews:189,desc:'100% silk, geometric print'},
+    {id:'a4',name:'Designer Belt',price:3500,old:5000,tag:'sale',colors:['#000','#8B6914','#D2691E'],rating:4.6,reviews:312,desc:'Leather, gold buckle'},
+    {id:'a5',name:'Mini Crossbody',price:5800,old:8000,tag:'new',colors:['#000','#FFB6C1','#D2691E'],rating:4.8,reviews:278,desc:'Compact, shoulder strap'},
+    {id:'a6',name:'Statement Earrings',price:1800,old:2500,tag:'trending',colors:['#D4A017','#C0C0C0','#FF69B4'],rating:4.7,reviews:567,desc:'Bold geometric, lightweight'},
+    {id:'a7',name:'Bucket Hat',price:2200,old:3000,tag:'hot',colors:['#000','#fff','#D2B48C'],rating:4.5,reviews:234,desc:'Reversible, packable'},
+    {id:'a8',name:'Sunglasses',price:4500,old:6500,tag:'sale',colors:['#000','#8B6914','#D2691E'],rating:4.8,reviews:389,desc:'UV400, oversized frame'},
+    {id:'a9',name:'Leather Wallet',price:3200,old:null,tag:'new',colors:['#000','#8B6914','#D2691E'],rating:4.6,reviews:156,desc:'Bifold, card slots'},
+    {id:'a10',name:'Straw Hat',price:2800,old:4000,tag:'trending',colors:['#D2B48C','#8B6914','#fff'],rating:4.7,reviews:201,desc:'Wide brim, summer style'},
+  ],
+  sale:[
+    {id:'sl1',name:'Printed Maxi Dress',price:3500,old:12000,tag:'sale',colors:['#FF69B4','#DDA0DD','#FFB6C1'],rating:4.7,reviews:234,disc:70},
+    {id:'sl2',name:'Leather Biker Jacket',price:8500,old:25000,tag:'sale',colors:['#000','#1a1a1a','#8B6914'],rating:4.8,reviews:189,disc:66},
+    {id:'sl3',name:'Cargo Joggers',price:2200,old:6000,tag:'sale',colors:['#4a4a2a','#000','#1a1a1a'],rating:4.5,reviews:312,disc:63},
+    {id:'sl4',name:'Satin Blouse',price:2800,old:7500,tag:'sale',colors:['#C0C0C0','#FFB6C1','#fff'],rating:4.6,reviews:156,disc:62},
+    {id:'sl5',name:'Denim Co-ord Set',price:4500,old:12000,tag:'sale',colors:['#4169E1','#000','#8B6914'],rating:4.8,reviews:445,disc:62},
+    {id:'sl6',name:'Woolen Overcoat',price:9500,old:28000,tag:'sale',colors:['#1a1a1a','#8B6914','#2c3e50'],rating:4.9,reviews:98,disc:66},
+    {id:'sl7',name:'Silk Scarf Set',price:1500,old:4500,tag:'sale',colors:['#FF69B4','#DDA0DD','#F5DEB3'],rating:4.5,reviews:267,disc:67},
+    {id:'sl8',name:'Formal Trousers',price:2800,old:8000,tag:'sale',colors:['#000','#1a3a5c','#2c2c2c'],rating:4.6,reviews:178,disc:65},
+    {id:'sl9',name:'Printed Hoodie',price:2500,old:7000,tag:'sale',colors:['#FF6B35','#FFD60A','#000'],rating:4.7,reviews:389,disc:64},
+    {id:'sl10',name:'Embroidered Kurta',price:3200,old:9000,tag:'sale',colors:['#fff','#F5DEB3','#D2B48C'],rating:4.8,reviews:512,disc:64},
+    {id:'sl11',name:'Accessories Bundle',price:4800,old:15000,tag:'sale',colors:['#D4A017','#C0C0C0','#000'],rating:4.7,reviews:201,disc:68},
+    {id:'sl12',name:'Kids Dress Set',price:1800,old:5500,tag:'sale',colors:['#FF69B4','#FFD60A','#06D6A0'],rating:4.9,reviews:334,disc:67},
+  ],
+  luxury:[
+    {id:'lx1',name:'Cashmere Coat',price:85000,old:120000,tag:'luxury',colors:['#1a1a1a','#8B6914','#D2691E'],rating:5.0,reviews:34,desc:'100% Mongolian cashmere'},
+    {id:'lx2',name:'Silk Kaftan',price:45000,old:65000,tag:'luxury',colors:['#D4A017','#8B6914','#000'],rating:4.9,reviews:67,desc:'Hand-embroidered, pure silk'},
+    {id:'lx3',name:'Leather Trench',price:120000,old:160000,tag:'luxury',colors:['#000','#D2691E','#8B6914'],rating:5.0,reviews:28,desc:'Italian full-grain leather'},
+    {id:'lx4',name:'Crystal Gown',price:95000,old:140000,tag:'luxury',colors:['#C0C0C0','#D4A017','#fff'],rating:4.9,reviews:19,desc:'Hand-sewn Swarovski crystals'},
+    {id:'lx5',name:'Bespoke Suit',price:150000,old:200000,tag:'luxury',colors:['#1a1a1a','#2c3e50','#4a3728'],rating:5.0,reviews:45,desc:'Savile Row inspired tailoring'},
+    {id:'lx6',name:'Embroidered Shawl',price:28000,old:42000,tag:'luxury',colors:['#D4A017','#8B6914','#F5DEB3'],rating:4.8,reviews:89,desc:'Handwoven, 24k gold thread'},
+  ],
+  shoes:[
+    {id:'sh1',name:'Chunky Sneakers',price:8500,old:12000,tag:'new',colors:['#fff','#000','#FF2D78'],rating:4.8,reviews:567,desc:'Platform sole, mixed materials'},
+    {id:'sh2',name:'Leather Loafers',price:9800,old:14000,tag:'trending',colors:['#8B6914','#000','#D2691E'],rating:4.7,reviews:234,desc:'Classic penny detail'},
+    {id:'sh3',name:'Strappy Heels',price:6500,old:9000,tag:'hot',colors:['#000','#D4A017','#FF69B4'],rating:4.6,reviews:312,desc:'Block heel, ankle strap'},
+    {id:'sh4',name:'Trail Boots',price:12000,old:16000,tag:'sale',colors:['#8B6914','#000','#4a4a2a'],rating:4.9,reviews:189,desc:'Waterproof, ankle support'},
+    {id:'sh5',name:'Slip-On Mules',price:5200,old:7500,tag:'new',colors:['#D2691E','#000','#F5DEB3'],rating:4.5,reviews:278,desc:'Open toe, padded insole'},
+    {id:'sh6',name:'High-Top Canvas',price:4800,old:null,tag:'trending',colors:['#fff','#000','#FF6B35'],rating:4.7,reviews:445,desc:'Classic vulcanized sole'},
+    {id:'sh7',name:'Kitten Heels',price:7200,old:10000,tag:'hot',colors:['#000','#8B6914','#FFB6C1'],rating:4.8,reviews:156,desc:'Pointed toe, slingback'},
+    {id:'sh8',name:'Mesh Sneakers',price:6800,old:9500,tag:'sale',colors:['#1a3a5c','#39FF14','#000'],rating:4.6,reviews:389,desc:'Breathable mesh upper'},
+    {id:'sh9',name:'Ankle Boots',price:10500,old:14000,tag:'new',colors:['#000','#D2691E','#8B6914'],rating:4.9,reviews:234,desc:'Zip closure, block heel'},
+    {id:'sh10',name:'Espadrilles',price:3800,old:5500,tag:'trending',colors:['#D2B48C','#fff','#8B6914'],rating:4.4,reviews:201,desc:'Jute sole, canvas upper'},
+  ],
+  newin:[
+    {id:'ni1',name:'Lace Midi Dress',price:8900,old:null,tag:'new',colors:['#fff','#FFB6C1','#000'],rating:4.9,reviews:89,desc:'Floral lace, V-neckline'},
+    {id:'ni2',name:'Utility Jacket',price:9500,old:null,tag:'new',colors:['#556B2F','#4a4a2a','#000'],rating:4.8,reviews:67,desc:'Multi-pocket, relaxed fit'},
+    {id:'ni3',name:'Ribbed Set',price:5800,old:null,tag:'new',colors:['#000','#D2B48C','#fff'],rating:4.7,reviews:134,desc:'Co-ord set, stretch rib'},
+    {id:'ni4',name:'Denim Maxi Skirt',price:6200,old:null,tag:'new',colors:['#4169E1','#000','#8B6914'],rating:4.8,reviews:78,desc:'A-line, raw hem detail'},
+    {id:'ni5',name:'Sheer Blouse',price:4200,old:null,tag:'new',colors:['#fff','#FFB6C1','#C0C0C0'],rating:4.6,reviews:112,desc:'Delicate fabric, relaxed'},
+    {id:'ni6',name:'Leather Trousers',price:14000,old:null,tag:'new',colors:['#000','#1a1a1a','#8B6914'],rating:4.9,reviews:56,desc:'Faux leather, high waist'},
+    {id:'ni7',name:'Crochet Dress',price:7500,old:null,tag:'new',colors:['#F5DEB3','#D2B48C','#fff'],rating:4.7,reviews:93,desc:'Handcrafted crochet detail'},
+    {id:'ni8',name:'Velvet Blazer',price:11000,old:null,tag:'new',colors:['#4a0e4e','#000','#8B0000'],rating:4.8,reviews:45,desc:'Crushed velvet, single button'},
+  ],
+};
+
+/* ═══ BRANDED SVG LOGO ═══ */
+function VividLogo({theme,onClick,size=28}){
+  const p=theme?.primary||'#FF2D78';
+  const s=theme?.secondary||'#7B2FFF';
+  return(
+    <div onClick={onClick} style={{cursor:'pointer',display:'flex',alignItems:'center',gap:8,flexShrink:0}}>
+      {/* Icon mark — diamond V shape */}
+      <svg width={size+4} height={size+4} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor={p}/>
+            <stop offset="100%" stopColor={s}/>
+          </linearGradient>
+          <linearGradient id="lg2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor={s}/>
+            <stop offset="100%" stopColor={p}/>
+          </linearGradient>
+        </defs>
+        {/* Outer diamond */}
+        <path d="M18 2 L34 18 L18 34 L2 18 Z" fill="url(#lg1)" opacity="0.15"/>
+        <path d="M18 2 L34 18 L18 34 L2 18 Z" stroke="url(#lg1)" strokeWidth="1.5" fill="none"/>
+        {/* V shape inside */}
+        <path d="M9 11 L18 25 L27 11" stroke="url(#lg2)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+        {/* Center dot */}
+        <circle cx="18" cy="25" r="2" fill={p}/>
+      </svg>
+      {/* Wordmark */}
+    <span style={{
+    fontFamily: "'Bebas Neue',sans-serif",
+    fontSize: size,
+    letterSpacing: 5,
+    color: '#000000',
+    fontWeight: 700,
+    lineHeight: 1,
+}}>VIVID</span>
+    </div>
+  );
+}
+
+const NAV_ITEMS=[
+  {id:'home',label:'Home'},
+  {id:'men',label:'Men'},
+  {id:'women',label:'Women'},
+  {id:'kids',label:'Kids'},
+  {id:'streetwear',label:'Street'},
+  {id:'accessories',label:'Accessories'},
+  {id:'shoes',label:'Shoes'},
+  {id:'luxury',label:'Luxury'},
+  {id:'newin',label:'New In'},
+  {id:'sale',label:'SALE 🔥'},
+];
+
+/* ═══ NAVBAR ═══ */
+function Navbar({currentPage,setPage,cartCount,wishCount,setCartOpen,setWishlistOpen,setProfileOpen}){
+  const t=PAGE_THEMES[currentPage]||PAGE_THEMES.home;
+  return(
+    <nav style={{position:'fixed',top:0,left:0,right:0,zIndex:1000,background:'rgba(5,5,5,0.97)',backdropFilter:'blur(24px)',borderBottom:`1px solid ${t.primary}28`,transition:'border-color 0.4s'}}>
+      <div style={{padding:'0 28px',height:62,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+        <VividLogo theme={t} onClick={()=>setPage('home')} size={26}/>
+        <div style={{display:'flex',gap:2,overflowX:'auto',scrollbarWidth:'none',flex:1,margin:'0 16px'}}>
+          {NAV_ITEMS.map(item=>(
+            <button key={item.id} onClick={()=>setPage(item.id)}
+              style={{background:currentPage===item.id?`${t.primary}20`:'none',border:currentPage===item.id?`1px solid ${t.primary}50`:'1px solid transparent',color:currentPage===item.id?t.primary:'rgba(255,255,255,0.6)',padding:'6px 12px',borderRadius:6,fontSize:11.5,fontWeight:600,letterSpacing:'0.6px',cursor:'pointer',whiteSpace:'nowrap',transition:'all 0.2s',fontFamily:"'Outfit',sans-serif",boxShadow:currentPage===item.id?`0 0 12px ${t.primary}30`:undefined}}>
+              {item.label}
+            </button>
+          ))}
+        </div>
+        <div style={{display:'flex',gap:10,alignItems:'center',flexShrink:0}}>
+          {/* Cart */}
+          <button onClick={()=>setCartOpen(true)} title="Shopping Cart"
+            style={{background:'none',border:'1px solid rgba(255,255,255,0.1)',color:'#fff',width:38,height:38,borderRadius:10,fontSize:17,cursor:'pointer',position:'relative',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s'}}
+            onMouseEnter={e=>{e.currentTarget.style.borderColor=t.primary;e.currentTarget.style.background=`${t.primary}15`}}
+            onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,0.1)';e.currentTarget.style.background='none'}}>
+            🛒
+            {cartCount>0&&<span style={{position:'absolute',top:-4,right:-4,background:t.primary,color:'#fff',fontSize:9,width:16,height:16,borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,boxShadow:`0 0 8px ${t.primary}`}}>{cartCount}</span>}
+          </button>
+          {/* Wishlist */}
+          <button onClick={()=>setWishlistOpen(true)} title="My Wishlist"
+            style={{background:'none',border:'1px solid rgba(255,255,255,0.1)',color:'#fff',width:38,height:38,borderRadius:10,fontSize:17,cursor:'pointer',position:'relative',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s'}}
+            onMouseEnter={e=>{e.currentTarget.style.borderColor='#FF2D78';e.currentTarget.style.background='rgba(255,45,120,0.15)'}}
+            onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,0.1)';e.currentTarget.style.background='none'}}>
+            ❤️
+            {wishCount>0&&<span style={{position:'absolute',top:-4,right:-4,background:'#FF2D78',color:'#fff',fontSize:9,width:16,height:16,borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,boxShadow:'0 0 8px rgba(255,45,120,0.8)'}}>{wishCount}</span>}
+          </button>
+          {/* Profile */}
+          <button onClick={()=>setProfileOpen(true)} title="My Account"
+            style={{background:'none',border:'1px solid rgba(255,255,255,0.1)',color:'#fff',width:38,height:38,borderRadius:10,fontSize:17,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s'}}
+            onMouseEnter={e=>{e.currentTarget.style.borderColor='#7B2FFF';e.currentTarget.style.background='rgba(123,47,255,0.15)'}}
+            onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,0.1)';e.currentTarget.style.background='none'}}>
+            👤
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+/* ═══ PRODUCT CARD ═══ */
+function ProductCard({product,theme,onAddCart,onWishlist,isWished}){
+  const [hover,setHover]=useState(false);
+  const [imgErr,setImgErr]=useState(false);
+  const discount=product.old?Math.round((1-product.price/product.old)*100):null;
+  const img=PRODUCT_IMAGES[product.id];
+  return(
+    <div onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
+      style={{background:theme.bg2,borderRadius:16,overflow:'hidden',border:`1px solid ${hover?theme.primary+'66':'rgba(255,255,255,0.05)'}`,transform:hover?'translateY(-8px)':'translateY(0)',boxShadow:hover?`0 24px 48px rgba(0,0,0,0.6),0 0 0 1px ${theme.primary}20,0 0 30px ${theme.primary}10`:'0 4px 16px rgba(0,0,0,0.3)',transition:'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',cursor:'pointer',position:'relative'}}>
+      <div style={{height:240,position:'relative',overflow:'hidden'}}>
+        {img&&!imgErr?(
+          <img src={img} alt={product.name} onError={()=>setImgErr(true)}
+            style={{width:'100%',height:'100%',objectFit:'cover',transition:'transform 0.5s',transform:hover?'scale(1.1)':'scale(1)'}}/>
+        ):(
+          <div style={{width:'100%',height:'100%',background:`linear-gradient(135deg,${theme.primary}20,${theme.secondary}20)`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:72}}>👗</div>
+        )}
+        <div style={{position:'absolute',inset:0,background:'linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 55%)'}}/>
+        {product.tag&&(
+          <span style={{position:'absolute',top:10,left:10,padding:'4px 10px',borderRadius:100,fontSize:9,fontWeight:800,letterSpacing:1.5,background:product.tag==='sale'?'#FF4500':product.tag==='luxury'?'#C9A84C':product.tag==='new'?theme.primary:'#FF6B00',color:product.tag==='luxury'?'#000':'#fff',boxShadow:`0 4px 12px rgba(0,0,0,0.4)`}}>
+            {product.tag==='sale'&&discount?`-${discount}%`:product.tag==='new'?'✦ NEW':product.tag==='luxury'?'✧ LUXURY':'🔥 HOT'}
+          </span>
+        )}
+        <button onClick={(e)=>{e.stopPropagation();onWishlist(product.id)}}
+          style={{position:'absolute',top:10,right:10,background:isWished?'rgba(255,45,120,0.9)':'rgba(0,0,0,0.6)',backdropFilter:'blur(8px)',border:`1px solid ${isWished?'#FF2D78':'rgba(255,255,255,0.15)'}`,width:34,height:34,borderRadius:'50%',fontSize:14,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',opacity:hover||isWished?1:0,transition:'all 0.3s',boxShadow:isWished?'0 0 16px rgba(255,45,120,0.6)':undefined}}>
+          {isWished?'❤️':'🤍'}
+        </button>
+      </div>
+      <div style={{padding:'14px 16px'}}>
+        <div style={{fontSize:10,color:theme.primary,letterSpacing:2,textTransform:'uppercase',marginBottom:3,fontWeight:700}}>VIVID</div>
+        <div style={{fontSize:14,fontWeight:700,color:'#fff',marginBottom:4,lineHeight:1.3}}>{product.name}</div>
+        {product.desc&&<div style={{fontSize:11.5,color:'rgba(255,255,255,0.4)',marginBottom:8}}>{product.desc}</div>}
+        <div style={{display:'flex',gap:5,marginBottom:10}}>
+          {(product.colors||[]).map((c,i)=>(
+            <div key={i} style={{width:12,height:12,borderRadius:'50%',background:c,border:'1.5px solid rgba(255,255,255,0.25)',boxShadow:`0 0 4px ${c}60`}}/>
+          ))}
+        </div>
+        <div style={{display:'flex',alignItems:'center',marginBottom:10}}>
+          <span style={{color:'#FFB800',fontSize:12}}>{'★'.repeat(Math.floor(product.rating||4))}{'☆'.repeat(5-Math.floor(product.rating||4))}</span>
+          <span style={{fontSize:11,color:'rgba(255,255,255,0.35)',marginLeft:5}}>({(product.reviews||0).toLocaleString()})</span>
+        </div>
+        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+          <div>
+            <span style={{fontSize:18,fontWeight:800,color:theme.primary}}>Rs {product.price.toLocaleString()}</span>
+            {product.old&&<span style={{fontSize:11,color:'rgba(255,255,255,0.3)',textDecoration:'line-through',marginLeft:7}}>Rs {product.old.toLocaleString()}</span>}
+          </div>
+          <button onClick={()=>onAddCart(product)}
+            style={{background:`linear-gradient(135deg,${theme.primary},${theme.secondary})`,border:'none',color:'#fff',width:36,height:36,borderRadius:10,fontSize:20,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s',fontWeight:700,boxShadow:hover?`0 4px 16px ${theme.primary}60`:undefined,transform:hover?'scale(1.1)':'scale(1)'}}>
+            +
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FilterBar({theme,filters,setFilters,products}){
+  const tags=[...new Set(products.map(p=>p.tag).filter(Boolean))];
+  return(
+    <div style={{display:'flex',gap:8,flexWrap:'wrap',marginBottom:28}}>
+      {[['all','All'],['price_asc','Price ↑'],['price_desc','Price ↓'],['rating','Top Rated'],...tags.map(t=>[t,t.toUpperCase()])].map(([val,label])=>(
+        <button key={val} onClick={()=>setFilters(f=>({...f,sort:val}))}
+          style={{background:filters.sort===val?`linear-gradient(135deg,${theme.primary},${theme.secondary})`:'rgba(255,255,255,0.05)',border:`1px solid ${filters.sort===val?'transparent':'rgba(255,255,255,0.08)'}`,color:filters.sort===val?'#fff':'rgba(255,255,255,0.55)',padding:'7px 18px',borderRadius:100,fontSize:12,fontWeight:600,cursor:'pointer',transition:'all 0.2s',fontFamily:"'Outfit',sans-serif",letterSpacing:'0.5px',boxShadow:filters.sort===val?`0 4px 16px ${theme.primary}40`:undefined}}>
+          {label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function Toast({msg,show,color}){
+  return(
+    <div style={{position:'fixed',bottom:24,left:'50%',transform:`translateX(-50%) translateY(${show?0:80}px)`,background:'rgba(15,15,15,0.95)',backdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.1)',color:'#fff',padding:'12px 24px',borderRadius:12,fontSize:14,fontWeight:500,zIndex:3000,transition:'transform 0.35s cubic-bezier(0.34,1.56,0.64,1)',display:'flex',alignItems:'center',gap:10,boxShadow:'0 8px 32px rgba(0,0,0,0.5)',whiteSpace:'nowrap'}}>
+      <span style={{fontSize:18}}>✅</span>{msg}
+    </div>
+  );
+}
+
+/* ═══ CART SIDEBAR ═══ */
+function CartSidebar({cart,setCart,open,setOpen,theme}){
+  const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const changeQty=(id,d)=>setCart(p=>p.map(i=>i.id===id?{...i,qty:Math.max(1,i.qty+d)}:i));
+  const remove=(id)=>setCart(p=>p.filter(i=>i.id!==id));
+  const handleCheckout=()=>{if(cart.length===0)return;window.open(waCheckoutMsg(cart),'_blank');};
+  return(
+    <>
+      <div onClick={()=>setOpen(false)} style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.8)',backdropFilter:'blur(4px)',zIndex:2000,opacity:open?1:0,pointerEvents:open?'all':'none',transition:'opacity 0.3s'}}/>
+      <div style={{position:'fixed',top:0,right:open?0:-520,width:460,height:'100vh',background:'linear-gradient(180deg,#0e0e0e 0%,#080808 100%)',borderLeft:'1px solid rgba(255,255,255,0.06)',zIndex:2001,padding:24,overflowY:'auto',transition:'right 0.4s cubic-bezier(0.34,1.56,0.64,1)',display:'flex',flexDirection:'column'}}>
+        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:24}}>
+          <div style={{display:'flex',alignItems:'center',gap:12}}>
+            <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:24,letterSpacing:3}}>MY CART</div>
+            {cart.length>0&&<span style={{background:`linear-gradient(135deg,${theme.primary},${theme.secondary})`,color:'#fff',fontSize:11,padding:'2px 10px',borderRadius:100,fontWeight:700}}>{cart.reduce((s,i)=>s+i.qty,0)} items</span>}
+          </div>
+          <button onClick={()=>setOpen(false)} style={{background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.08)',color:'#fff',width:36,height:36,borderRadius:10,fontSize:16,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center'}}>✕</button>
+        </div>
+        <div style={{flex:1,overflowY:'auto',display:'flex',flexDirection:'column',gap:12}}>
+          {cart.length===0?(
+            <div style={{textAlign:'center',padding:'60px 20px',color:'rgba(255,255,255,0.4)'}}>
+              <div style={{fontSize:56,marginBottom:14}}>🛒</div>
+              <div style={{fontSize:15,marginBottom:20}}>Your cart is empty!</div>
+              <button onClick={()=>setOpen(false)} style={{background:`linear-gradient(135deg,${theme.primary},${theme.secondary})`,color:'#fff',border:'none',padding:'10px 28px',borderRadius:8,fontSize:13,fontWeight:700,cursor:'pointer',letterSpacing:1}}>START SHOPPING</button>
+            </div>
+          ):cart.map(item=>{
+            const img=PRODUCT_IMAGES[item.id];
+            return(
+            <div key={item.id} style={{background:'rgba(255,255,255,0.04)',borderRadius:12,padding:14,display:'flex',gap:14,alignItems:'center',border:'1px solid rgba(255,255,255,0.06)'}}>
+              <div style={{width:60,height:60,borderRadius:10,overflow:'hidden',flexShrink:0}}>
+                {img?<img src={img} alt={item.name} style={{width:'100%',height:'100%',objectFit:'cover'}}/>:
+                  <div style={{width:'100%',height:'100%',background:`${theme.primary}15`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:28}}>👗</div>}
+              </div>
+              <div style={{flex:1}}>
+                <div style={{fontSize:14,fontWeight:600,color:'#fff',marginBottom:3}}>{item.name}</div>
+                <div style={{fontSize:13,color:theme.primary,fontWeight:700}}>Rs {(item.price*item.qty).toLocaleString()}</div>
+                <div style={{display:'flex',alignItems:'center',gap:8,marginTop:8}}>
+                  <button onClick={()=>changeQty(item.id,-1)} style={{background:'rgba(255,255,255,0.08)',border:'none',color:'#fff',width:26,height:26,borderRadius:6,fontSize:15,cursor:'pointer'}}>−</button>
+                  <span style={{fontSize:14,fontWeight:600,minWidth:20,textAlign:'center'}}>{item.qty}</span>
+                  <button onClick={()=>changeQty(item.id,1)} style={{background:'rgba(255,255,255,0.08)',border:'none',color:'#fff',width:26,height:26,borderRadius:6,fontSize:15,cursor:'pointer'}}>+</button>
+                </div>
+              </div>
+              <button onClick={()=>remove(item.id)} style={{background:'none',border:'none',color:'rgba(255,255,255,0.3)',fontSize:16,cursor:'pointer',padding:4,borderRadius:6,transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='#FF4500'} onMouseLeave={e=>e.target.style.color='rgba(255,255,255,0.3)'}>🗑</button>
+            </div>
+          )})}
+        </div>
+        {cart.length>0&&(
+          <div style={{marginTop:20,borderTop:'1px solid rgba(255,255,255,0.07)',paddingTop:20}}>
+            <div style={{display:'flex',justifyContent:'space-between',fontSize:13,color:'rgba(255,255,255,0.45)',marginBottom:6}}><span>Subtotal</span><span>Rs {total.toLocaleString()}</span></div>
+            <div style={{display:'flex',justifyContent:'space-between',fontSize:13,color:'#4CAF50',marginBottom:16}}><span>Delivery</span><span>FREE ✓</span></div>
+            <div style={{display:'flex',justifyContent:'space-between',fontSize:20,fontWeight:800,color:'#fff',marginBottom:18}}><span>Total</span><span style={{color:theme.primary}}>Rs {total.toLocaleString()}</span></div>
+            <button onClick={handleCheckout} style={{width:'100%',background:'linear-gradient(135deg,#25D366,#128C7E)',color:'#fff',border:'none',padding:16,borderRadius:10,fontSize:14,fontWeight:700,cursor:'pointer',letterSpacing:1,fontFamily:"'Outfit',sans-serif",display:'flex',alignItems:'center',justifyContent:'center',gap:10,boxShadow:'0 8px 24px rgba(37,211,102,0.3)'}}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              ORDER ON WHATSAPP →
+            </button>
+            <p style={{fontSize:11,color:'rgba(255,255,255,0.25)',textAlign:'center',marginTop:10}}>Order details sent via WhatsApp • Free delivery nationwide</p>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+/* ═══ WISHLIST MODAL ═══ */
+function WishlistModal({open,setOpen,wishlist,products,setPage,onAddCart,theme}){
+  if(!open) return null;
+  const allProducts=Object.values(ALL_PRODUCTS).flat();
+  const wishedItems=allProducts.filter(p=>wishlist.includes(p.id));
+  return(
+    <>
+      <div onClick={()=>setOpen(false)} style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.85)',backdropFilter:'blur(6px)',zIndex:2000}}/>
+      <div style={{position:'fixed',top:'50%',left:'50%',transform:'translate(-50%,-50%)',width:'min(600px,95vw)',maxHeight:'80vh',background:'#0d0d0d',border:'1px solid rgba(255,255,255,0.08)',borderRadius:20,zIndex:2001,padding:28,overflowY:'auto',animation:'scaleIn 0.3s ease'}}>
+        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:24}}>
+          <div>
+            <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:26,letterSpacing:3,color:'#FF2D78'}}>MY WISHLIST ❤️</div>
+            <div style={{fontSize:12,color:'rgba(255,255,255,0.4)',marginTop:2}}>{wishedItems.length} saved items</div>
+          </div>
+          <button onClick={()=>setOpen(false)} style={{background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.08)',color:'#fff',width:36,height:36,borderRadius:10,fontSize:16,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center'}}>✕</button>
+        </div>
+        {wishedItems.length===0?(
+          <div style={{textAlign:'center',padding:'40px 20px',color:'rgba(255,255,255,0.4)'}}>
+            <div style={{fontSize:48,marginBottom:12}}>💔</div>
+            <div style={{fontSize:15}}>No saved items yet</div>
+            <div style={{fontSize:12,marginTop:8,color:'rgba(255,255,255,0.3)'}}>Tap ❤️ on any product to save it here</div>
+          </div>
+        ):(
+          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(180px,1fr))',gap:14}}>
+            {wishedItems.map(p=>{
+              const t=PAGE_THEMES[Object.keys(ALL_PRODUCTS).find(k=>ALL_PRODUCTS[k].some(x=>x.id===p.id))||'home'];
+              const img=PRODUCT_IMAGES[p.id];
+              return(
+              <div key={p.id} style={{background:'rgba(255,255,255,0.04)',borderRadius:12,overflow:'hidden',border:'1px solid rgba(255,255,255,0.06)'}}>
+                <div style={{height:140,overflow:'hidden',position:'relative'}}>
+                  {img?<img src={img} alt={p.name} style={{width:'100%',height:'100%',objectFit:'cover'}}/>:
+                    <div style={{width:'100%',height:'100%',background:`${t.primary}15`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:40}}>👗</div>}
+                </div>
+                <div style={{padding:'10px 12px'}}>
+                  <div style={{fontSize:12,fontWeight:700,color:'#fff',marginBottom:4}}>{p.name}</div>
+                  <div style={{fontSize:13,color:t.primary,fontWeight:700,marginBottom:8}}>Rs {p.price.toLocaleString()}</div>
+                  <button onClick={()=>{onAddCart(p);setOpen(false);}} style={{width:'100%',background:`linear-gradient(135deg,${t.primary},${t.secondary})`,border:'none',color:'#fff',padding:'7px',borderRadius:7,fontSize:11,fontWeight:700,cursor:'pointer',letterSpacing:0.5}}>ADD TO CART</button>
+                </div>
+              </div>
+            )})}
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+/* ═══ PROFILE MODAL ═══ */
+function ProfileModal({open,setOpen}){
+  if(!open) return null;
+  return(
+    <>
+      <div onClick={()=>setOpen(false)} style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.85)',backdropFilter:'blur(6px)',zIndex:2000}}/>
+      <div style={{position:'fixed',top:'50%',left:'50%',transform:'translate(-50%,-50%)',width:'min(460px,95vw)',background:'#0d0d0d',border:'1px solid rgba(255,255,255,0.08)',borderRadius:20,zIndex:2001,padding:32,animation:'scaleIn 0.3s ease'}}>
+        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:28}}>
+          <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:26,letterSpacing:3,background:'linear-gradient(90deg,#7B2FFF,#FF2D78)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>MY ACCOUNT</div>
+          <button onClick={()=>setOpen(false)} style={{background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.08)',color:'#fff',width:36,height:36,borderRadius:10,fontSize:16,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center'}}>✕</button>
+        </div>
+        <div style={{textAlign:'center',padding:'20px 0 28px'}}>
+          <div style={{width:80,height:80,borderRadius:'50%',background:'linear-gradient(135deg,#7B2FFF,#FF2D78)',margin:'0 auto 16px',display:'flex',alignItems:'center',justifyContent:'center',fontSize:36,boxShadow:'0 8px 24px rgba(123,47,255,0.4)'}}>👤</div>
+          <div style={{fontSize:14,color:'rgba(255,255,255,0.5)',marginBottom:20}}>Sign in to track orders & save your wishlist</div>
+        </div>
+        <div style={{display:'flex',flexDirection:'column',gap:12}}>
+          <a href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hi VIVID! I need help with my account.')}`} target="_blank" rel="noopener noreferrer"
+            style={{display:'flex',alignItems:'center',gap:14,padding:'14px 18px',background:'linear-gradient(135deg,rgba(37,211,102,0.1),rgba(18,140,126,0.1))',border:'1px solid rgba(37,211,102,0.25)',borderRadius:12,textDecoration:'none',color:'#fff',cursor:'pointer',transition:'all 0.2s'}}
+            onMouseEnter={e=>e.currentTarget.style.background='linear-gradient(135deg,rgba(37,211,102,0.2),rgba(18,140,126,0.2))'}
+            onMouseLeave={e=>e.currentTarget.style.background='linear-gradient(135deg,rgba(37,211,102,0.1),rgba(18,140,126,0.1))'}>
+            <span style={{fontSize:22}}>💬</span>
+            <div><div style={{fontSize:13,fontWeight:700,color:'#25D366'}}>Contact on WhatsApp</div><div style={{fontSize:11,color:'rgba(255,255,255,0.4)'}}>Quick support & order help</div></div>
+          </a>
+          {[
+            {icon:'📦',label:'Track My Order',sub:'Check order status',href:`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hi! I want to track my VIVID order.')}`},
+            {icon:'↩️',label:'Returns & Exchanges',sub:'Easy 7-day returns',href:`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hi! I want to return/exchange a VIVID order.')}`},
+            {icon:'📏',label:'Size Guide',sub:'Find your perfect fit',href:`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hi! Can you help me find the right size?')}`},
+          ].map(item=>(
+            <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
+              style={{display:'flex',alignItems:'center',gap:14,padding:'14px 18px',background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.07)',borderRadius:12,textDecoration:'none',color:'#fff',transition:'all 0.2s'}}
+              onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,0.08)'}
+              onMouseLeave={e=>e.currentTarget.style.background='rgba(255,255,255,0.04)'}>
+              <span style={{fontSize:22}}>{item.icon}</span>
+              <div><div style={{fontSize:13,fontWeight:600}}>{item.label}</div><div style={{fontSize:11,color:'rgba(255,255,255,0.35)'}}>{item.sub}</div></div>
+              <span style={{marginLeft:'auto',color:'rgba(255,255,255,0.25)',fontSize:14}}>›</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+/* ═══ HOME PAGE 3D HERO ═══ */
+function HeroScene3D(){
+  const cards=[
+    {img:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&q=80',label:'New Arrival',price:'Rs 8,500',anim:'hero-card-1',top:'5%',left:'8%',rot:'-8deg'},
+    {img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&q=80',label:'Best Seller',price:'Rs 6,200',anim:'hero-card-2',top:'28%',left:'42%',rot:'6deg'},
+    {img:'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=300&q=80',label:'Trending Now',price:'Rs 5,500',anim:'hero-card-3',top:'2%',left:'56%',rot:'-4deg'},
+  ];
+  return(
+    <div style={{position:'absolute',right:0,top:0,bottom:0,width:'52%',overflow:'hidden',perspective:1400}}>
+      {/* Deep background gradient orbs */}
+      <div style={{position:'absolute',width:500,height:500,borderRadius:'50%',background:'radial-gradient(circle,rgba(255,45,120,0.18) 0%,transparent 70%)',top:'10%',right:'5%',animation:'pulseBig 4s ease-in-out infinite',pointerEvents:'none'}}/>
+      <div style={{position:'absolute',width:350,height:350,borderRadius:'50%',background:'radial-gradient(circle,rgba(123,47,255,0.15) 0%,transparent 70%)',bottom:'5%',left:'10%',animation:'pulseBig 5s ease-in-out infinite',animationDelay:'-2s',pointerEvents:'none'}}/>
+      {/* Rotating geometric rings */}
+      <div style={{position:'absolute',width:440,height:440,borderRadius:'50%',border:'1px solid rgba(255,45,120,0.12)',top:'50%',left:'50%',transform:'translate(-50%,-50%)',animation:'spin 25s linear infinite',pointerEvents:'none'}}/>
+      <div style={{position:'absolute',width:320,height:320,borderRadius:'50%',border:'1px dashed rgba(123,47,255,0.1)',top:'50%',left:'50%',transform:'translate(-50%,-50%)',animation:'spin 18s linear infinite reverse',pointerEvents:'none'}}/>
+      <div style={{position:'absolute',width:200,height:200,borderRadius:'50%',border:'1px solid rgba(200,255,0,0.08)',top:'50%',left:'50%',transform:'translate(-50%,-50%)',animation:'spin 12s linear infinite',pointerEvents:'none'}}/>
+      {/* Orbiting dots */}
+      {[0,1,2].map(i=>(
+        <div key={i} style={{position:'absolute',top:'50%',left:'50%',marginTop:-220,marginLeft:-220,width:440,height:440,animation:`orbit ${8+i*3}s linear infinite`,animationDelay:`${i*-3}s`,pointerEvents:'none'}}>
+          <div style={{width:8,height:8,borderRadius:'50%',background:['#FF2D78','#7B2FFF','#C8FF00'][i],boxShadow:`0 0 12px ${['rgba(255,45,120,0.8)','rgba(123,47,255,0.8)','rgba(200,255,0,0.8)'][i]}`}}/>
+        </div>
+      ))}
+      {/* Floating 3D product cards */}
+      {cards.map((c,i)=>(
+        <div key={i} className={c.anim} style={{position:'absolute',top:c.top,left:c.left,transformStyle:'preserve-3d',zIndex:3-i}}>
+          <div style={{
+            width:150,height:200,borderRadius:20,overflow:'hidden',
+            background:'rgba(15,15,20,0.92)',
+            border:'1px solid rgba(255,255,255,0.1)',
+            boxShadow:`0 30px 70px rgba(0,0,0,0.7),0 0 0 1px rgba(255,45,120,0.15),inset 0 1px 0 rgba(255,255,255,0.05)`,
+            backdropFilter:'blur(12px)',
+            transform:`rotateZ(${c.rot})`,
+          }}>
+            <img src={c.img} alt={c.label} style={{width:'100%',height:140,objectFit:'cover'}} onError={e=>e.target.style.display='none'}/>
+            <div style={{padding:'8px 12px',background:'linear-gradient(to bottom,rgba(10,10,15,0.8),rgba(10,10,15,0.95))'}}>
+              <div style={{fontSize:9,color:'#FF2D78',fontWeight:800,letterSpacing:1.5,textTransform:'uppercase'}}>{c.label}</div>
+              <div style={{fontSize:14,fontWeight:800,color:'#fff',marginTop:2}}>{c.price}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+      {/* Sparkle particles */}
+      {[...Array(12)].map((_,i)=>(
+        <div key={i} style={{
+          position:'absolute',
+          width:i%3===0?6:4,height:i%3===0?6:4,
+          borderRadius:'50%',
+          background:['#FF2D78','#7B2FFF','#C8FF00','#00D4FF'][i%4],
+          left:`${5+i*8}%`,top:`${8+i*7}%`,
+          animation:`pulse ${1.5+i*0.25}s ease-in-out infinite`,
+          animationDelay:`${i*0.15}s`,
+          boxShadow:`0 0 ${i%3===0?12:6}px ${['rgba(255,45,120,0.9)','rgba(123,47,255,0.9)','rgba(200,255,0,0.9)','rgba(0,212,255,0.9)'][i%4]}`,
+          pointerEvents:'none',
+        }}/>
+      ))}
+      {/* Holographic grid overlay */}
+      <div style={{position:'absolute',inset:0,backgroundImage:'linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px)',backgroundSize:'40px 40px',pointerEvents:'none',opacity:0.5}}/>
+    </div>
+  );
+}
+
+/* ═══ CATEGORY PAGE 3D HERO ═══ */
+function CategoryHero3D({cfg,theme,products}){
+  return(
+    <div style={{padding:'100px 48px 64px',position:'relative',overflow:'hidden',borderBottom:`1px solid ${theme.primary}18`}}>
+      {/* Multi-layer gradient bg */}
+      <div style={{position:'absolute',inset:0,background:`radial-gradient(ellipse 80% 90% at 0% 50%,${theme.primary}14 0%,transparent 55%),radial-gradient(ellipse 50% 70% at 90% 20%,${theme.secondary}10 0%,transparent 50%),radial-gradient(ellipse 40% 60% at 60% 80%,${theme.primary}08 0%,transparent 50%)`}}/>
+      {/* Animated 3D shape right side */}
+      <div style={{position:'absolute',right:'8%',top:'50%',transform:'translateY(-50%)',width:260,height:260,display:'flex',alignItems:'center',justifyContent:'center'}}>
+        {/* Morphing blob */}
+        <div style={{position:'absolute',width:220,height:220,background:`radial-gradient(circle,${theme.primary}25,${theme.secondary}15,transparent 70%)`,animation:'morphBlob 6s ease-in-out infinite',filter:'blur(2px)'}}/>
+        {/* Giant letter */}
+        <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:160,color:`${theme.primary}08`,letterSpacing:-8,lineHeight:1,userSelect:'none',animation:'floatSlow 5s ease-in-out infinite'}}>{cfg.shape}</div>
+        {/* Orbiting gems */}
+        {[0,1,2,3].map(i=>(
+          <div key={i} style={{position:'absolute',top:'50%',left:'50%',marginTop:-120,marginLeft:-120,width:240,height:240,animation:`orbit ${6+i*2}s linear infinite`,animationDelay:`${i*-2}s`}}>
+            <div style={{width:10,height:10,borderRadius:'50%',background:i%2===0?theme.primary:theme.secondary,boxShadow:`0 0 16px ${i%2===0?theme.primary:theme.secondary}`}}/>
+          </div>
+        ))}
+        {/* Spinning rings */}
+        <div style={{position:'absolute',width:240,height:240,borderRadius:'50%',border:`1px solid ${theme.primary}20`,animation:'spin 20s linear infinite'}}/>
+        <div style={{position:'absolute',width:180,height:180,borderRadius:'50%',border:`1px dashed ${theme.secondary}15`,animation:'spin 14s linear infinite reverse'}}/>
+      </div>
+      {/* Floating mini product cards */}
+      {products.slice(0,2).map((p,i)=>{
+        const img=PRODUCT_IMAGES[p.id];
+        return(
+          <div key={p.id} style={{position:'absolute',right:`${28+i*22}%`,top:i===0?'12%':'auto',bottom:i===1?'10%':'auto',zIndex:2,animation:`tilt3d${i+1} ${5+i}s ease-in-out infinite`}}>
+            <div style={{width:110,height:145,borderRadius:16,overflow:'hidden',background:'rgba(12,12,16,0.9)',border:`1px solid ${theme.primary}25`,boxShadow:`0 20px 50px rgba(0,0,0,0.6),0 0 20px ${theme.primary}20`,backdropFilter:'blur(10px)',transform:`rotateZ(${i===0?'-6':'5'}deg)`}}>
+              {img&&<img src={img} alt={p.name} style={{width:'100%',height:100,objectFit:'cover'}}/>}
+              <div style={{padding:'6px 8px'}}>
+                <div style={{fontSize:8,color:theme.primary,fontWeight:800,letterSpacing:1}}>VIVID</div>
+                <div style={{fontSize:11,fontWeight:700,color:'#fff'}}>Rs {p.price.toLocaleString()}</div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+      {/* Sparkles */}
+      {[...Array(8)].map((_,i)=>(
+        <div key={i} style={{position:'absolute',width:5,height:5,borderRadius:'50%',background:i%2===0?theme.primary:theme.secondary,left:`${60+i*4}%`,top:`${15+i*10}%`,animation:`pulse ${1.5+i*0.3}s ease-in-out infinite`,animationDelay:`${i*0.2}s`,boxShadow:`0 0 10px ${i%2===0?theme.primary:theme.secondary}`,pointerEvents:'none'}}/>
+      ))}
+      <div style={{position:'relative',zIndex:2}}>
+        <div style={{display:'inline-flex',alignItems:'center',gap:8,background:`${theme.primary}15`,border:`1px solid ${theme.primary}35`,color:theme.primary,padding:'5px 16px',borderRadius:100,fontSize:10,fontWeight:800,letterSpacing:2.5,marginBottom:20}}>
+          <span style={{width:5,height:5,borderRadius:'50%',background:theme.primary,animation:'pulse 1.5s infinite'}}/>
+          {cfg.sub.toUpperCase()}
+        </div>
+        <h1 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(52px,7.5vw,108px)',letterSpacing:4,lineHeight:0.88,marginBottom:24}}>
+          <span style={{color:theme.primary}}>{cfg.title.split(' ')[0]}</span>{' '}
+          <span style={{color:'#fff'}}>{cfg.title.split(' ').slice(1).join(' ')}</span>
+        </h1>
+        <p style={{fontSize:16,color:'rgba(255,255,255,0.45)',maxWidth:480,marginBottom:32,lineHeight:1.75}}>{cfg.hero}</p>
+        <div style={{display:'flex',gap:28,flexWrap:'wrap'}}>
+          {[`${products.length} Products`,`From Rs ${Math.min(...products.map(p=>p.price)).toLocaleString()}`,`Free Delivery`].map((s,i)=>(
+            <div key={i} style={{display:'flex',alignItems:'center',gap:8,fontSize:13,color:'rgba(255,255,255,0.55)'}}>
+              <span style={{width:7,height:7,borderRadius:'50%',background:theme.primary,display:'inline-block',boxShadow:`0 0 8px ${theme.primary}`}}/>
+              {s}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══ HOME PAGE ═══ */
+function HomePage({setPage,theme}){
+  const marquee=['New Season 2026','50% Off Sale','Free Delivery','Premium Quality','Exclusive Designs','Pakistani Brands'];
+  const featured=[
+    {page:'women',img:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80',title:"Women's",color:'#FF6B9D',count:'2.4K+ styles'},
+    {page:'men',img:'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80',title:"Men's",color:'#00C2FF',count:'1.8K+ styles'},
+    {page:'streetwear',img:'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&q=80',title:'Streetwear',color:'#39FF14',count:'890+ styles'},
+    {page:'shoes',img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80',title:'Shoes',color:'#7C3AED',count:'560+ styles'},
+    {page:'kids',img:'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80',title:"Kids'",color:'#FFD60A',count:'680+ styles'},
+    {page:'accessories',img:'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80',title:'Accessories',color:'#D4A017',count:'1.2K+ styles'},
+    {page:'luxury',img:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80',title:'Luxury',color:'#C9A84C',count:'180+ styles'},
+    {page:'newin',img:'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&q=80',title:'New In',color:'#06D6A0',count:'320+ styles'},
+  ];
+  return(
+    <div className="page">
+      {/* ═══ HERO ═══ */}
+      <section style={{minHeight:'100vh',position:'relative',display:'flex',alignItems:'center',padding:'110px 48px 60px',overflow:'hidden',background:'#050505'}}>
+        {/* Background layers */}
+        <div style={{position:'absolute',inset:0,background:'radial-gradient(ellipse 60% 80% at 15% 60%,rgba(255,45,120,0.12) 0%,transparent 55%),radial-gradient(ellipse 50% 60% at 80% 20%,rgba(123,47,255,0.1) 0%,transparent 50%)'}}/>
+        <div style={{position:'absolute',inset:0,backgroundImage:'linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px)',backgroundSize:'55px 55px'}}/>
+        {/* Floating massive text bg */}
+        <div style={{position:'absolute',left:-40,top:'50%',transform:'translateY(-50%)',fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(200px,30vw,400px)',color:'rgba(255,255,255,0.015)',letterSpacing:-20,userSelect:'none',lineHeight:1,pointerEvents:'none'}}>VIVID</div>
+        {/* Left content */}
+        <div style={{position:'relative',zIndex:2,maxWidth:580,animation:'slideInLeft 0.7s ease both'}}>
+          <div style={{display:'inline-flex',alignItems:'center',gap:8,background:'rgba(255,45,120,0.1)',border:'1px solid rgba(255,45,120,0.28)',color:'#FF2D78',padding:'6px 18px',borderRadius:100,fontSize:10,fontWeight:800,letterSpacing:2.5,textTransform:'uppercase',marginBottom:28}}>
+            <span style={{width:6,height:6,borderRadius:'50%',background:'#FF2D78',animation:'pulse 1.5s infinite'}}/>
+            New Collection 2026 — Live Now
+          </div>
+          <h1 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(80px,11vw,145px)',lineHeight:0.85,letterSpacing:3,marginBottom:28}}>
+            <div style={{color:'#FF2D78',animation:'neonFlicker 4s infinite',textShadow:'0 0 40px rgba(255,45,120,0.4)'}}>DRESS</div>
+            <div style={{WebkitTextStroke:'2px rgba(255,255,255,0.7)',color:'transparent'}}>YOUR</div>
+            <div style={{background:'linear-gradient(90deg,#C8FF00,#39FF14)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',textShadow:'none'}}>VIBE</div>
+          </h1>
+          <p style={{fontSize:16,color:'rgba(255,255,255,0.5)',lineHeight:1.8,maxWidth:460,marginBottom:36}}>Pakistan's #1 fashion destination. Every style, every mood — 5000+ premium products just for you.</p>
+          <div style={{display:'flex',gap:14,flexWrap:'wrap'}}>
+            <button onClick={()=>setPage('newin')}
+              style={{background:'linear-gradient(135deg,#FF2D78,#7B2FFF)',color:'#fff',border:'none',padding:'16px 40px',borderRadius:6,fontSize:13,fontWeight:800,letterSpacing:2,cursor:'pointer',transition:'all 0.3s',fontFamily:"'Outfit',sans-serif",boxShadow:'0 8px 32px rgba(255,45,120,0.4)',animation:'glow 2.5s ease-in-out infinite'}}
+              onMouseEnter={e=>{e.target.style.transform='translateY(-2px) scale(1.02)';e.target.style.boxShadow='0 16px 48px rgba(255,45,120,0.6)'}}
+              onMouseLeave={e=>{e.target.style.transform='';e.target.style.boxShadow='0 8px 32px rgba(255,45,120,0.4)'}}>
+              SHOP NOW →
+            </button>
+            <button onClick={()=>setPage('sale')}
+              style={{background:'transparent',color:'#fff',border:'1.5px solid rgba(255,255,255,0.2)',padding:'16px 36px',borderRadius:6,fontSize:13,fontWeight:700,letterSpacing:2,cursor:'pointer',fontFamily:"'Outfit',sans-serif",backdropFilter:'blur(8px)',transition:'all 0.2s'}}
+              onMouseEnter={e=>{e.target.style.borderColor='rgba(255,255,255,0.5)';e.target.style.background='rgba(255,255,255,0.05)'}}
+              onMouseLeave={e=>{e.target.style.borderColor='rgba(255,255,255,0.2)';e.target.style.background='transparent'}}>
+              VIEW SALE 🔥
+            </button>
+          </div>
+          <div style={{display:'flex',gap:40,marginTop:52}}>
+            {[['50K+','Customers'],['5K+','Products'],['4.9★','Rating'],['Free','Delivery']].map(([n,l])=>(
+              <div key={l}>
+                <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:34,background:'linear-gradient(90deg,#FF2D78,#7B2FFF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',letterSpacing:1}}>{n}</div>
+                <div style={{fontSize:10,color:'rgba(255,255,255,0.35)',letterSpacing:2,textTransform:'uppercase',marginTop:2}}>{l}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* 3D Right Scene */}
+        <HeroScene3D/>
+      </section>
+
+      {/* ═══ MARQUEE ═══ */}
+      <div style={{overflow:'hidden',borderTop:'1px solid rgba(255,255,255,0.05)',borderBottom:'1px solid rgba(255,255,255,0.05)',padding:'14px 0',background:'rgba(255,255,255,0.02)'}}>
+        <div style={{display:'flex',width:'max-content',animation:'marquee 22s linear infinite'}}>
+          {[...marquee,...marquee].map((t,i)=>(
+            <span key={i} style={{padding:'0 28px',fontSize:11,fontWeight:700,letterSpacing:3,color:'rgba(255,255,255,0.35)',textTransform:'uppercase',whiteSpace:'nowrap',display:'flex',alignItems:'center',gap:28}}>
+              {t}<span style={{color:'#FF2D78',fontSize:6}}>◆</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* ═══ FEATURED CATEGORIES ═══ */}
+      <section style={{padding:'80px 48px',background:'#050505'}}>
+        <div style={{marginBottom:48}}>
+          <div style={{fontSize:10,fontWeight:800,letterSpacing:3,color:'#FF2D78',marginBottom:12}}>SHOP BY CATEGORY</div>
+          <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(40px,5vw,64px)',letterSpacing:3}}>
+            FIND YOUR <span style={{WebkitTextStroke:'2px rgba(255,255,255,0.5)',color:'transparent'}}>STYLE</span>
+          </h2>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))',gap:16}}>
+          {featured.map((cat,i)=>(
+            <div key={cat.page} onClick={()=>setPage(cat.page)} className="cat-card-3d"
+              style={{position:'relative',height:280,borderRadius:18,overflow:'hidden',cursor:'pointer',transition:'all 0.4s cubic-bezier(0.34,1.56,0.64,1)',transformStyle:'preserve-3d',border:'1px solid rgba(255,255,255,0.04)',animation:`fadeUp 0.5s ease ${i*0.06}s both`}}>
+              <img src={cat.img} alt={cat.title} style={{width:'100%',height:'100%',objectFit:'cover'}} onError={e=>e.target.style.display='none'}/>
+              <div style={{position:'absolute',inset:0,background:`linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.2) 60%,transparent 100%)`}}/>
+              <div style={{position:'absolute',inset:0,background:`${cat.color}00`,transition:'background 0.3s'}} className="cat-overlay"/>
+              <div style={{position:'absolute',bottom:20,left:16,right:16}}>
+                <div style={{fontSize:20,fontFamily:"'Bebas Neue',sans-serif",letterSpacing:2,color:'#fff',marginBottom:4}}>{cat.title}</div>
+                <div style={{fontSize:11,color:`${cat.color}`,fontWeight:700,letterSpacing:1}}>{cat.count}</div>
+              </div>
+              <div style={{position:'absolute',top:14,right:14,width:32,height:32,borderRadius:'50%',background:cat.color,display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:800,color:'#000',boxShadow:`0 4px 16px ${cat.color}60`}}>→</div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/* ═══ CATEGORY PAGE ═══ */
+function CategoryPage({pageId,onAddCart,onWishlist,wishlist}){
+  const theme=PAGE_THEMES[pageId];
+  const products=ALL_PRODUCTS[pageId]||[];
+  const [filters,setFilters]=useState({sort:'all'});
+  const [search,setSearch]=useState('');
+  const configs={
+    men:{title:"MEN'S COLLECTION",sub:'Bold, confident, stylish',hero:"Your ultimate destination for men's fashion — premium styles for every occasion.",bg1:'#04080f',shape:'▲'},
+    women:{title:"WOMEN'S FASHION",sub:'Elegance redefined',hero:'The perfect outfit for every occasion — from casual to couture.',bg1:'#0a050d',shape:'◆'},
+    kids:{title:"KIDS' CORNER",sub:'Fun and comfort',hero:'Colorful, durable and super cute — the best collection for kids!',bg1:'#0a0800',shape:'★'},
+    streetwear:{title:'STREETWEAR',sub:'Hustle. Drip. Repeat.',hero:'Authentic street culture — bold graphics, clean silhouettes.',bg1:'#030303',shape:'✦'},
+    accessories:{title:'ACCESSORIES',sub:'Complete the look',hero:'The right accessory transforms any outfit — shop our curated edit.',bg1:'#080600',shape:'◈'},
+    shoes:{title:'FOOTWEAR',sub:'Walk in style',hero:'From chunky sneakers to elegant heels — every step counts.',bg1:'#05040c',shape:'⬡'},
+    luxury:{title:'LUXURY EDIT',sub:'Crafted for connoisseurs',hero:'Premium fabrics, exceptional craftsmanship — fashion as art.',bg1:'#060606',shape:'✧'},
+    newin:{title:'NEW ARRIVALS',sub:'Just dropped',hero:'Fresh from the runway to your wardrobe — be the first to wear it.',bg1:'#020c0a',shape:'◉'},
+    sale:{title:'SALE ZONE',sub:'Up to 70% off',hero:'Incredible deals on premium fashion — limited time, limited stock!',bg1:'#0a0300',shape:'%'},
+  };
+  const cfg=configs[pageId]||configs.men;
+  let sorted=[...products];
+  if(search) sorted=sorted.filter(p=>p.name.toLowerCase().includes(search.toLowerCase()));
+  if(filters.sort==='price_asc') sorted.sort((a,b)=>a.price-b.price);
+  else if(filters.sort==='price_desc') sorted.sort((a,b)=>b.price-a.price);
+  else if(filters.sort==='rating') sorted.sort((a,b)=>(b.rating||4)-(a.rating||4));
+  else if(filters.sort!=='all') sorted=sorted.filter(p=>p.tag===filters.sort);
+  return(
+    <div className="page" style={{background:cfg.bg1,minHeight:'100vh'}}>
+      {/* 3D HERO for each category */}
+      <CategoryHero3D cfg={cfg} theme={theme} products={products}/>
+      {/* SEARCH + FILTER */}
+      <div style={{padding:'32px 48px 0'}}>
+        <div style={{display:'flex',gap:12,marginBottom:20,alignItems:'center',flexWrap:'wrap'}}>
+          <div style={{position:'relative',flex:1,maxWidth:340}}>
+            <span style={{position:'absolute',left:14,top:'50%',transform:'translateY(-50%)',fontSize:14}}>🔍</span>
+            <input value={search} onChange={e=>setSearch(e.target.value)} placeholder={`Search ${pageId} products...`}
+              style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${theme.primary}28`,borderRadius:10,padding:'11px 16px 11px 42px',color:'#fff',fontSize:13,outline:'none',fontFamily:"'Outfit',sans-serif",transition:'border-color 0.2s'}}
+              onFocus={e=>e.target.style.borderColor=`${theme.primary}60`}
+              onBlur={e=>e.target.style.borderColor=`${theme.primary}28`}/>
+          </div>
+          <div style={{fontSize:12,color:'rgba(255,255,255,0.35)',fontWeight:600}}>{sorted.length} products</div>
+        </div>
+        <FilterBar theme={theme} filters={filters} setFilters={setFilters} products={products}/>
+      </div>
+      {/* GRID */}
+      <div style={{padding:'0 48px 80px',display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(230px,1fr))',gap:18}}>
+        {sorted.map((p,i)=>(
+          <div key={p.id} style={{animation:`fadeUp 0.4s ease ${i*0.04}s both`}}>
+            <ProductCard product={p} theme={theme} onAddCart={onAddCart} onWishlist={onWishlist} isWished={wishlist.includes(p.id)}/>
+          </div>
+        ))}
+        {sorted.length===0&&(
+          <div style={{gridColumn:'1/-1',textAlign:'center',padding:'80px 20px',color:'rgba(255,255,255,0.3)'}}>
+            <div style={{fontSize:56,marginBottom:16}}>🔍</div>
+            <div style={{fontSize:18}}>No products found</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ═══ FOOTER ═══ */
+function Footer({setPage}){
+  const socialLinks=[
+    {icon:<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>,label:'Facebook',href:'https://facebook.com/vividfashion.pk'},
+    {icon:<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>,label:'Instagram',href:'https://instagram.com/vividfashion.pk'},
+    {icon:<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>,label:'LinkedIn',href:'https://linkedin.com/company/vividfashion'},
+    {icon:<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.28 6.28 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.77 1.52V6.75a4.85 4.85 0 01-1-.06z"/></svg>,label:'TikTok',href:'https://tiktok.com/@vividfashion.pk'},
+  ];
+
+  const helpLinks=[
+    {label:'FAQs',href:'#faqs'},
+    {label:'Track Order',href:`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hi! I want to track my VIVID order.')}`},
+    {label:'Returns & Exchanges',href:`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hi! I want to return/exchange a VIVID order.')}`},
+    {label:'Size Guide',href:`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hi! Can you help me find the right size?')}`},
+    {label:'Contact Us',href:`https://wa.me/${WA_NUMBER}?text=${WA_AUTO_MSG}`},
+    {label:'Careers',href:`mailto:careers@vivid.pk`},
+  ];
+
+  const contactLinks=[
+    {icon:'📞',text:'0300-1234567',href:'tel:+923001234567'},
+    {icon:'💬',text:'WhatsApp Us',href:`https://wa.me/${WA_NUMBER}?text=${WA_AUTO_MSG}`},
+    {icon:'📧',text:'hello@vivid.pk',href:'mailto:hello@vivid.pk'},
+    {icon:'📍',text:'Karachi, Pakistan',href:'https://maps.google.com/?q=Karachi+Pakistan'},
+    {icon:'🕐',text:'11 AM – 10 PM',href:null},
+  ];
+
+  return(
+    <footer style={{background:'linear-gradient(180deg,#080808 0%,#050505 100%)',borderTop:'1px solid rgba(255,255,255,0.05)',padding:'64px 48px 28px'}}>
+      <div style={{display:'grid',gridTemplateColumns:'2.2fr 1fr 1fr 1.1fr',gap:48,marginBottom:52}}>
+        {/* Brand col */}
+        <div>
+          <VividLogo theme={PAGE_THEMES.home} onClick={()=>{}} size={30}/>
+          <p style={{fontSize:14,color:'rgba(255,255,255,0.38)',lineHeight:1.8,marginTop:16,marginBottom:22,maxWidth:280}}>Pakistan's premium fashion destination. Every style, every budget — find it all at VIVID.</p>
+          <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
+            {socialLinks.map((s,i)=>(
+              <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" title={s.label}
+                style={{width:38,height:38,borderRadius:10,background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.07)',fontSize:14,cursor:'pointer',transition:'all 0.25s',display:'flex',alignItems:'center',justifyContent:'center',color:'rgba(255,255,255,0.5)',textDecoration:'none'}}
+                onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,45,120,0.15)';e.currentTarget.style.borderColor='rgba(255,45,120,0.4)';e.currentTarget.style.color='#FF2D78';e.currentTarget.style.transform='translateY(-3px)'}}
+                onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,0.05)';e.currentTarget.style.borderColor='rgba(255,255,255,0.07)';e.currentTarget.style.color='rgba(255,255,255,0.5)';e.currentTarget.style.transform=''}}>
+                {s.icon}
+              </a>
+            ))}
+          </div>
+        </div>
+        {/* Shop col */}
+        <div>
+          <div style={{fontSize:11,fontWeight:800,letterSpacing:3,color:'#fff',marginBottom:20}}>SHOP</div>
+          <div style={{display:'flex',flexDirection:'column',gap:11}}>
+            {[['Men','men'],['Women','women'],['Kids','kids'],['Streetwear','streetwear'],['Accessories','accessories'],['Shoes','shoes'],['Luxury','luxury'],['New In','newin'],['Sale 🔥','sale']].map(([l,id])=>(
+              <button key={l} onClick={()=>setPage(id)}
+                style={{background:'none',border:'none',color:'rgba(255,255,255,0.38)',fontSize:13,cursor:'pointer',textAlign:'left',transition:'all 0.2s',padding:0,fontFamily:"'Outfit',sans-serif",display:'flex',alignItems:'center',gap:6}}
+                onMouseEnter={e=>{e.currentTarget.style.color='#FF2D78';e.currentTarget.style.paddingLeft='6px'}}
+                onMouseLeave={e=>{e.currentTarget.style.color='rgba(255,255,255,0.38)';e.currentTarget.style.paddingLeft='0'}}>
+                <span style={{fontSize:6,color:'inherit'}}>▸</span>{l}
+              </button>
+            ))}
+          </div>
+        </div>
+        {/* Help col */}
+        <div>
+          <div style={{fontSize:11,fontWeight:800,letterSpacing:3,color:'#fff',marginBottom:20}}>HELP</div>
+          <div style={{display:'flex',flexDirection:'column',gap:11}}>
+            {helpLinks.map(link=>(
+              <a key={link.label} href={link.href} target={link.href?.startsWith('http')?'_blank':undefined} rel="noopener noreferrer"
+                style={{fontSize:13,color:'rgba(255,255,255,0.38)',cursor:'pointer',transition:'all 0.2s',textDecoration:'none',display:'flex',alignItems:'center',gap:6}}
+                onMouseEnter={e=>{e.currentTarget.style.color='#FF2D78';e.currentTarget.style.paddingLeft='6px'}}
+                onMouseLeave={e=>{e.currentTarget.style.color='rgba(255,255,255,0.38)';e.currentTarget.style.paddingLeft='0'}}>
+                <span style={{fontSize:6,color:'inherit'}}>▸</span>{link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+        {/* Contact col */}
+        <div>
+          <div style={{fontSize:11,fontWeight:800,letterSpacing:3,color:'#fff',marginBottom:20}}>CONTACT</div>
+          <div style={{display:'flex',flexDirection:'column',gap:13}}>
+            {contactLinks.map(({icon,text,href})=>{
+              const inner=(
+                <div style={{display:'flex',gap:11,fontSize:13,color:'rgba(255,255,255,0.38)',alignItems:'center',transition:'color 0.2s'}}>
+                  <span style={{fontSize:15}}>{icon}</span>{text}
+                </div>
+              );
+              return href?(
+                <a key={text} href={href} target={href.startsWith('http')?'_blank':undefined} rel="noopener noreferrer"
+                  style={{textDecoration:'none',color:'inherit'}}
+                  onMouseEnter={e=>e.currentTarget.querySelector('div').style.color='#FF2D78'}
+                  onMouseLeave={e=>e.currentTarget.querySelector('div').style.color='rgba(255,255,255,0.38)'}>
+                  {inner}
+                </a>
+              ):(
+                <div key={text}>{inner}</div>
+              );
+            })}
+          </div>
+          {/* WhatsApp CTA */}
+          <a href={`https://wa.me/${WA_NUMBER}?text=${WA_AUTO_MSG}`} target="_blank" rel="noopener noreferrer"
+            style={{marginTop:18,display:'flex',alignItems:'center',gap:10,background:'linear-gradient(135deg,rgba(37,211,102,0.12),rgba(18,140,126,0.12))',border:'1px solid rgba(37,211,102,0.25)',padding:'10px 14px',borderRadius:10,textDecoration:'none',color:'#25D366',fontSize:12,fontWeight:700,letterSpacing:0.5,transition:'all 0.2s'}}
+            onMouseEnter={e=>{e.currentTarget.style.background='linear-gradient(135deg,rgba(37,211,102,0.22),rgba(18,140,126,0.22))';e.currentTarget.style.transform='translateY(-2px)'}}
+            onMouseLeave={e=>{e.currentTarget.style.background='linear-gradient(135deg,rgba(37,211,102,0.12),rgba(18,140,126,0.12))';e.currentTarget.style.transform=''}}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chat on WhatsApp
+          </a>
+        </div>
+      </div>
+      {/* Bottom bar */}
+      <div style={{borderTop:'1px solid rgba(255,255,255,0.05)',paddingTop:24,display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:14}}>
+        <div style={{fontSize:12,color:'rgba(255,255,255,0.25)'}}>© 2026 <span style={{color:'#FF2D78',fontWeight:700}}>VIVID Fashion</span> — All rights reserved. Made with ❤️ in Pakistan</div>
+        <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+          {['JazzCash','EasyPaisa','Visa','Mastercard','COD'].map(p=>(
+            <div key={p} style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.07)',padding:'4px 12px',borderRadius:5,fontSize:10,fontWeight:700,color:'rgba(255,255,255,0.35)',letterSpacing:0.5}}>{p}</div>
+          ))}
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ═══ MAIN APP ═══ */
+function App(){
+  const [page,setPage]=useState('home');
+  const [cart,setCart]=useState([]);
+  const [wishlist,setWishlist]=useState([]);
+  const [cartOpen,setCartOpen]=useState(false);
+  const [wishlistOpen,setWishlistOpen]=useState(false);
+  const [profileOpen,setProfileOpen]=useState(false);
+  const [toast,setToast]=useState({msg:'',show:false});
+  const currentTheme=PAGE_THEMES[page]||PAGE_THEMES.home;
+
+  const showToast=(msg)=>{setToast({msg,show:true});setTimeout(()=>setToast(t=>({...t,show:false})),2500);};
+  const addToCart=(product)=>{
+    setCart(prev=>{
+      const ex=prev.find(i=>i.id===product.id);
+      if(ex) return prev.map(i=>i.id===product.id?{...i,qty:i.qty+1}:i);
+      return [...prev,{...product,qty:1}];
+    });
+    showToast(`${product.name} added to cart! 🎉`);
+  };
+  const toggleWishlist=(id)=>{
+    const inList=wishlist.includes(id);
+    setWishlist(prev=>inList?prev.filter(x=>x!==id):[...prev,id]);
+    showToast(inList?'Removed from wishlist':'Added to wishlist! ❤️');
+  };
+  const cartCount=cart.reduce((s,i)=>s+i.qty,0);
+  const handleSetPage=(p)=>{setPage(p);window.scrollTo({top:0,behavior:'smooth'});};
+
+  return(
+    <>
+      <Navbar currentPage={page} setPage={handleSetPage} cartCount={cartCount} wishCount={wishlist.length} setCartOpen={setCartOpen} setWishlistOpen={setWishlistOpen} setProfileOpen={setProfileOpen}/>
+      <div style={{paddingTop:62}}>
+        {page==='home'?<HomePage setPage={handleSetPage} theme={currentTheme}/>:<CategoryPage pageId={page} onAddCart={addToCart} onWishlist={toggleWishlist} wishlist={wishlist}/>}
+      </div>
+      <Footer setPage={handleSetPage}/>
+      <CartSidebar cart={cart} setCart={setCart} open={cartOpen} setOpen={setCartOpen} theme={currentTheme}/>
+      <WishlistModal open={wishlistOpen} setOpen={setWishlistOpen} wishlist={wishlist} setPage={handleSetPage} onAddCart={addToCart} theme={currentTheme}/>
+      <ProfileModal open={profileOpen} setOpen={setProfileOpen}/>
+      <Toast msg={toast.msg} show={toast.show} color={currentTheme.primary}/>
+      {/* WhatsApp Float */}
+      <a href={`https://wa.me/${WA_NUMBER}?text=${WA_AUTO_MSG}`} target="_blank" rel="noopener noreferrer"
+        style={{position:'fixed',bottom:24,right:24,background:'linear-gradient(135deg,#25D366,#128C7E)',color:'#fff',width:58,height:58,borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',textDecoration:'none',boxShadow:'0 8px 28px rgba(37,211,102,0.5)',zIndex:999,animation:'float 3s ease-in-out infinite'}}>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
