@@ -9,48 +9,139 @@
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;background:#050505;color:#fff;overflow-x:hidden}
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-track{background:#050505}
-::-webkit-scrollbar-thumb{background:linear-gradient(#FF2D78,#7B2FFF);border-radius:2px}
+  :root {
+    --primary: #FF2D78;
+    --secondary: #7B2FFF;
+    --bg: #050505;
+    --card-bg: #0d0d0d;
+    --text: #ffffff;
+    --text-dim: rgba(255, 255, 255, 0.4);
+    --border: rgba(255, 255, 255, 0.08);
+    --safe-area: clamp(16px, 5vw, 48px);
+  }
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes float{0%,100%{transform:translateY(0px)}50%{transform:translateY(-14px)}}
-@keyframes floatSlow{0%,100%{transform:translateY(0px) rotate(0deg)}50%{transform:translateY(-20px) rotate(3deg)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-@keyframes pulseBig{0%,100%{transform:scale(1);opacity:0.6}50%{transform:scale(1.15);opacity:1}}
-@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes spinSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(255,45,120,0.4),0 0 40px rgba(255,45,120,0.15)}50%{box-shadow:0 0 40px rgba(255,45,120,0.8),0 0 80px rgba(123,47,255,0.4),0 0 120px rgba(255,45,120,0.2)}}
-@keyframes glowPurple{0%,100%{box-shadow:0 0 20px rgba(123,47,255,0.4)}50%{box-shadow:0 0 50px rgba(123,47,255,0.9),0 0 100px rgba(123,47,255,0.3)}}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-@keyframes orbit{0%{transform:rotate(0deg) translateX(120px) rotate(0deg)}100%{transform:rotate(360deg) translateX(120px) rotate(-360deg)}}
-@keyframes orbit2{0%{transform:rotate(180deg) translateX(90px) rotate(-180deg)}100%{transform:rotate(540deg) translateX(90px) rotate(-540deg)}}
-@keyframes scaleIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
-@keyframes tilt3d{0%,100%{transform:perspective(800px) rotateX(8deg) rotateY(-12deg) translateY(0)}25%{transform:perspective(800px) rotateX(-4deg) rotateY(10deg) translateY(-12px)}50%{transform:perspective(800px) rotateX(6deg) rotateY(8deg) translateY(-8px)}75%{transform:perspective(800px) rotateX(-6deg) rotateY(-10deg) translateY(-14px)}}
-@keyframes tilt3d2{0%,100%{transform:perspective(800px) rotateX(-6deg) rotateY(10deg) translateY(0)}50%{transform:perspective(800px) rotateX(8deg) rotateY(-8deg) translateY(-16px)}}
-@keyframes tilt3d3{0%,100%{transform:perspective(800px) rotateX(4deg) rotateY(-6deg) translateY(-8px)}50%{transform:perspective(800px) rotateX(-8deg) rotateY(12deg) translateY(0)}}
-@keyframes particleDrift{0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0.8}100%{transform:translateY(-300px) translateX(80px) rotate(360deg);opacity:0}}
-@keyframes morphBlob{0%,100%{border-radius:60% 40% 30% 70% / 60% 30% 70% 40%}25%{border-radius:30% 60% 70% 40% / 50% 60% 30% 60%}50%{border-radius:50% 60% 30% 60% / 30% 40% 70% 50%}75%{border-radius:60% 30% 50% 60% / 40% 70% 30% 50%}}
-@keyframes hologram{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-@keyframes bounce3d{0%,100%{transform:perspective(600px) rotateY(0deg) translateY(0)}50%{transform:perspective(600px) rotateY(180deg) translateY(-10px)}}
-@keyframes slideInLeft{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
-@keyframes slideInRight{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
-@keyframes neonFlicker{0%,100%{opacity:1}92%{opacity:1}93%{opacity:0.8}94%{opacity:1}96%{opacity:0.6}97%{opacity:1}}
-@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-@keyframes diamondSpin{0%{transform:rotate(0deg) scale(1)}50%{transform:rotate(180deg) scale(1.1)}100%{transform:rotate(360deg) scale(1)}}
-@keyframes cardHover3d{0%,100%{transform:perspective(1000px) rotateX(5deg) rotateY(-8deg) translateZ(0)}50%{transform:perspective(1000px) rotateX(-3deg) rotateY(8deg) translateZ(20px)}}
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  @keyframes tilt3d { 0%, 100% { transform: perspective(800px) rotateX(8deg) rotateY(-12deg); } 50% { transform: perspective(800px) rotateX(-6deg) rotateY(10deg); } }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes pulseBig { 0%, 100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.15); opacity: 1; } }
+  @keyframes orbit { 0% { transform: rotate(0deg) translateX(120px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(120px) rotate(-360deg); } }
+  
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  
+  .shimmer { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); background-size: 200% 100%; animation: shimmer 2s infinite; }
+  @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 
-.page{animation:fadeIn 0.5s ease both}
-.hero-card-1{animation:tilt3d 5s ease-in-out infinite}
-.hero-card-2{animation:tilt3d2 6s ease-in-out infinite;animation-delay:-2s}
-.hero-card-3{animation:tilt3d3 7s ease-in-out infinite;animation-delay:-4s}
-.cat-card-3d:hover{transform:perspective(600px) rotateY(8deg) rotateX(-4deg) scale(1.03)!important}
-.logo-animated{animation:gradientShift 3s ease infinite;background-size:300% 300%}
+  .responsive-section { padding: 80px var(--safe-area); display: flex; align-items: center; position: relative; overflow: hidden; }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; padding: 0 var(--safe-area) 80px; }
+  
+  @media (max-width: 1024px) {
+    .responsive-section { padding: 60px var(--safe-area); }
+    .product-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  }
+  @media (max-width: 768px) {
+    .responsive-section { padding: 40px var(--safe-area); flex-direction: column; text-align: center; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .hero-scene-container { position: relative !important; width: 100% !important; height: 300px !important; margin-top: 24px; transform: scale(0.85) !important; }
+    .hero-content { text-align: center !important; }
+    .hero-cta-group { justify-content: center !important; }
+    .hero-stats { justify-content: center !important; gap: 24px !important; margin-top: 32px !important; }
+    .hero-scene-3d-home { display: none !important; }
+    .nav-categories { display: none !important; }
+    .cat-hero-content { text-align: left !important; }
+  }
+  @media (max-width: 480px) {
+    .product-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; padding: 0 12px 60px !important; }
+    .hero-content h1 { font-size: 48px !important; line-height: 0.88 !important; }
+    .hero-cta-group button { padding: 13px 22px !important; font-size: 11px !important; }
+    .hero-stats { gap: 20px !important; }
+    .logo-text { display: none; }
+    .find-style-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+  }
+  @media (max-width: 360px) {
+    .product-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px !important; padding: 0 8px 50px !important; }
+    .hero-content h1 { font-size: 38px !important; }
+  }
+
+  .neon-text { text-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary)33; }
+  .glass-card { background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); }
+  .gradient-text { background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  .card-3d { transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); transform-style: preserve-3d; }
+  .card-3d:hover { transform: perspective(1000px) rotateX(6deg) rotateY(-6deg) translateY(-12px) !important; }
+  .product-card-3d { transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); transform-style: preserve-3d; }
+  .product-card-3d:hover { transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(-10px) !important; }
+
+  .hero-card-1, .tilt3d1 { animation: tilt3d 5s ease-in-out infinite; }
+  .hero-card-2, .tilt3d2 { animation: tilt3d 6s ease-in-out infinite; animation-delay: -2s; }
+  .hero-card-3, .tilt3d3 { animation: tilt3d 7s ease-in-out infinite; animation-delay: -4s; }
+  .hero-card-container:hover { animation-play-state: paused; transform: scale(1.05) perspective(1000px) rotateY(-10deg) !important; z-index: 100 !important; }
+
+  @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(255,45,120,0.7); } 70% { box-shadow: 0 0 0 15px rgba(255,45,120,0); } 100% { box-shadow: 0 0 0 0 rgba(255,45,120,0); } }
+  .btn-premium { transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); cursor: pointer; position: relative; }
+  .btn-premium:hover { transform: translateY(-3px) scale(1.02); filter: brightness(1.15); box-shadow: 0 12px 24px rgba(255,45,120,0.4); }
+  .btn-premium:active { transform: translateY(-1px) scale(0.98); }
+  .btn-pulse { animation: pulseGlow 2s infinite; }
+  .menu-btn { display: none; }
+  @media (max-width: 768px) {
+    .menu-btn { display: flex !important; }
+  }
+
+  /* ── Product Card Mobile ── */
+  @media (max-width: 480px) {
+    .product-info { padding: 8px 10px !important; }
+    .product-name { font-size: 11px !important; margin-bottom: 2px !important; }
+    .product-price { font-size: 13px !important; }
+    .product-desc { display: none !important; }
+    .product-colors { display: none !important; }
+    .product-rating { font-size: 9px !important; margin-bottom: 6px !important; }
+    .product-add-btn { width: 28px !important; height: 28px !important; font-size: 16px !important; border-radius: 8px !important; }
+    .wishlist-btn { width: 26px !important; height: 26px !important; font-size: 11px !important; opacity: 1 !important; }
+    .product-tag { font-size: 7px !important; padding: 3px 7px !important; }
+  }
+  .cat-hero-content { max-width: 55%; }
+  .cat-hero-cards { display: block; }
+  @media (max-width: 768px) {
+    .cat-hero-content { max-width: 100% !important; text-align: center !important; }
+    .cat-hero-cards { display: none !important; }
+    .hero-scene-container { display: none !important; }
+    .responsive-section { min-height: auto !important; padding: 60px 20px 40px !important; }
+    .cat-hero-stats { justify-content: center !important; }
+  }
+  @media (max-width: 480px) {
+    .cat-hero-content h1 { font-size: clamp(40px, 12vw, 72px) !important; }
+    .cat-hero-content p { font-size: 13px !important; }
+    .cat-hero-stats { gap: 16px !important; }
+    .search-filter-row { flex-direction: column !important; }
+  }
+  /* ── Home Category Cards ── */
+  .cat-card { transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+  .cat-card:active { transform: scale(0.96); }
+  @media (max-width: 768px) {
+    .find-style-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; padding: 0 14px 50px !important; }
+    .cat-card { height: clamp(140px, 44vw, 210px) !important; border-radius: 14px !important; }
+    .cat-card-title { font-size: 15px !important; }
+    .cat-card-count { font-size: 9px !important; }
+    .cat-card-arrow { width: 24px !important; height: 24px !important; font-size: 10px !important; }
+  }
+  @media (max-width: 480px) {
+    .find-style-grid { gap: 8px !important; padding: 0 10px 44px !important; }
+    .cat-card { height: clamp(120px, 42vw, 160px) !important; border-radius: 10px !important; }
+    .cat-card-title { font-size: 12px !important; letter-spacing: 0.5px !important; }
+    .cat-card-count { font-size: 8px !important; }
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
 </style>
 </head>
 <body>
@@ -69,107 +160,115 @@ function waCheckoutMsg(cart){
 }
 
 const PAGE_THEMES={
-  home:{primary:'#FF2D78',secondary:'#7B2FFF',bg:'#050505',bg2:'#0d0d0d',accent:'#C8FF00'},
-  men:{primary:'#00C2FF',secondary:'#0077B6',bg:'#04080f',bg2:'#08121e',accent:'#90E0EF'},
-  women:{primary:'#FF6B9D',secondary:'#C77DFF',bg:'#0a050d',bg2:'#120b18',accent:'#FFD6E7'},
-  kids:{primary:'#FFD60A',secondary:'#FF6B35',bg:'#0a0800',bg2:'#130f00',accent:'#80FFDB'},
+  home:{primary:'#FF007A',secondary:'#8A2BE2',bg:'#050505',bg2:'#0d0d0d',accent:'#00FFCC'},
+  men:{primary:'#00D2FF',secondary:'#3A7BD5',bg:'#04080f',bg2:'#08121e',accent:'#90E0EF'},
+  women:{primary:'#FF00FF',secondary:'#7000FF',bg:'#0a050d',bg2:'#120b18',accent:'#FFD6E7'},
+  kids:{primary:'#FFD700',secondary:'#FF4500',bg:'#0a0800',bg2:'#130f00',accent:'#80FFDB'},
   streetwear:{primary:'#39FF14',secondary:'#00FF88',bg:'#030303',bg2:'#080808',accent:'#CCFF00'},
-  accessories:{primary:'#D4A017',secondary:'#B8860B',bg:'#080600',bg2:'#100c00',accent:'#FFE08A'},
-  sale:{primary:'#FF4500',secondary:'#FF6B00',bg:'#0a0300',bg2:'#140600',accent:'#FFB347'},
-  luxury:{primary:'#C9A84C',secondary:'#A67C52',bg:'#060606',bg2:'#0d0d0d',accent:'#FFE5B4'},
-  shoes:{primary:'#7C3AED',secondary:'#5B21B6',bg:'#05040c',bg2:'#0a0818',accent:'#C4B5FD'},
-  newin:{primary:'#06D6A0',secondary:'#0CB8A0',bg:'#020c0a',bg2:'#04140f',accent:'#80FFDB'},
+  accessories:{primary:'#FFD700',secondary:'#B8860B',bg:'#080600',bg2:'#100c00',accent:'#FFE08A'},
+  sale:{primary:'#FF4500',secondary:'#FF0000',bg:'#0a0300',bg2:'#140600',accent:'#FFB347'},
+  luxury:{primary:'#D4AF37',secondary:'#8B4513',bg:'#060606',bg2:'#0d0d0d',accent:'#FFE5B4'},
+  shoes:{primary:'#7C3AED',secondary:'#C026D3',bg:'#05040c',bg2:'#0a0818',accent:'#C4B5FD'},
+  newin:{primary:'#00F5D4',secondary:'#00BBF9',bg:'#020c0a',bg2:'#04140f',accent:'#80FFDB'},
 };
 
 const PRODUCT_IMAGES={
-  m1:'https://images.unsplash.com/photo-1594938298603-c8148c4b7d9d?w=400&q=80',
-  m2:'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&q=80',
-  m3:'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&q=80',
-  m4:'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&q=80',
-  m5:'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80',
-  m6:'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?w=400&q=80',
-  m7:'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=400&q=80',
-  m8:'https://images.unsplash.com/photo-1544441893-675973e31985?w=400&q=80',
-  m9:'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80',
-  m10:'https://images.unsplash.com/photo-1618517048289-4e4f998e083f?w=400&q=80',
-  m11:'https://images.unsplash.com/photo-1591195853828-11db59a44f43?w=400&q=80',
-  m12:'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&q=80',
-  w1:'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&q=80',
-  w2:'https://images.unsplash.com/photo-1617922001439-4a2e6562f328?w=400&q=80',
-  w3:'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&q=80',
-  w4:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80',
-  w5:'https://images.unsplash.com/photo-1601379760883-1bb497a46073?w=400&q=80',
-  w6:'https://images.unsplash.com/photo-1603217040830-2943a4c07e4c?w=400&q=80',
-  w7:'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&q=80',
-  w8:'https://images.unsplash.com/photo-1548624313-0396c75e4b1a?w=400&q=80',
-  w9:'https://images.unsplash.com/photo-1566206091558-7f218b696731?w=400&q=80',
-  w10:'https://images.unsplash.com/photo-1606335192038-a0f7de2ce7a1?w=400&q=80',
-  w11:'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80',
-  w12:'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80',
-  k1:'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400&q=80',
-  k2:'https://images.unsplash.com/photo-1543701064-e47c1a0f1af0?w=400&q=80',
-  k3:'https://images.unsplash.com/photo-1560506840-ec148e82a604?w=400&q=80',
-  k4:'https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=400&q=80',
-  k5:'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80',
-  k6:'https://images.unsplash.com/photo-1485893086445-ed75865251e0?w=400&q=80',
-  k7:'https://images.unsplash.com/photo-1617114212870-8f8b1f340f58?w=400&q=80',
-  k8:'https://images.unsplash.com/photo-1536922246289-88c42f957773?w=400&q=80',
-  s1:'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&q=80',
-  s2:'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&q=80',
-  s3:'https://images.unsplash.com/photo-1547949003-9792a18a2601?w=400&q=80',
-  s4:'https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&q=80',
-  s5:'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&q=80',
-  s6:'https://images.unsplash.com/photo-1520975867077-ba96a6a3ed29?w=400&q=80',
-  s7:'https://images.unsplash.com/photo-1605908502724-9093a79a6413?w=400&q=80',
-  s8:'https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=400&q=80',
-  s9:'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&q=80',
-  s10:'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&q=80',
-  a1:'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80',
-  a2:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=80',
-  a3:'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=400&q=80',
-  a4:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80',
-  a5:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80',
-  a6:'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&q=80',
-  a7:'https://images.unsplash.com/photo-1556306535-38febf6a6dda?w=400&q=80',
-  a8:'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&q=80',
-  a9:'https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&q=80',
-  a10:'https://images.unsplash.com/photo-1521369909029-2afed882baee?w=400&q=80',
-  sl1:'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&q=80',
-  sl2:'https://images.unsplash.com/photo-1520975867077-ba96a6a3ed29?w=400&q=80',
-  sl3:'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&q=80',
-  sl4:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80',
-  sl5:'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&q=80',
-  sl6:'https://images.unsplash.com/photo-1548624313-0396c75e4b1a?w=400&q=80',
-  sl7:'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=400&q=80',
-  sl8:'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&q=80',
-  sl9:'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&q=80',
-  sl10:'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&q=80',
-  sl11:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=80',
-  sl12:'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80',
-  lx1:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80',
-  lx2:'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=400&q=80',
-  lx3:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80',
-  lx4:'https://images.unsplash.com/photo-1566206091558-7f218b696731?w=400&q=80',
-  lx5:'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80',
-  lx6:'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=400&q=80',
-  sh1:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80',
-  sh2:'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=400&q=80',
-  sh3:'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&q=80',
-  sh4:'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&q=80',
-  sh5:'https://images.unsplash.com/photo-1603487742131-4160ec999306?w=400&q=80',
-  sh6:'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&q=80',
-  sh7:'https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=400&q=80',
-  sh8:'https://images.unsplash.com/photo-1556048219-bb6978360b84?w=400&q=80',
-  sh9:'https://images.unsplash.com/photo-1605812860427-4024433a70fd?w=400&q=80',
-  sh10:'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400&q=80',
-  ni1:'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&q=80',
-  ni2:'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80',
-  ni3:'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&q=80',
-  ni4:'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80',
-  ni5:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80',
-  ni6:'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80',
-  ni7:'https://images.unsplash.com/photo-1601601392684-3e47955c5ff1?w=400&q=80',
-  ni8:'https://images.unsplash.com/photo-1617922001439-4a2e6562f328?w=400&q=80',
+  m1: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=75',
+  m2: 'https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&w=400&q=75',
+  m3: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=75',
+  m4: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=400&q=75',
+  m5: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=75',
+  m6: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=400&q=75',
+  m7: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=400&q=75',
+  m8: 'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?auto=format&fit=crop&w=400&q=75',
+  m9: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=400&q=75',
+  m10: 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=400&q=75',
+  m11: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=75',
+  m12: 'https://images.unsplash.com/photo-1578932750294-f5075e85f44a?auto=format&fit=crop&w=600&q=80',
+  w1: 'https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?auto=format&fit=crop&w=400&q=75',
+  w2: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=400&q=75',
+  w3: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=400&q=75',
+  w4: 'https://images.unsplash.com/photo-1617922001439-4a2e6562f328?auto=format&fit=crop&w=400&q=75',
+  w5: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=400&q=75',
+  w6: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=75',
+  w7: 'https://images.unsplash.com/photo-1621335829175-95f437384d7c?auto=format&fit=crop&w=600&q=80',
+  w8: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=600&q=80',
+  w9: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=400&q=75',
+  w10: 'https://images.unsplash.com/photo-1548624313-0396c75e4b1a?auto=format&fit=crop&w=400&q=75',
+  w11: 'https://images.unsplash.com/photo-1566206091558-7f218b696731?auto=format&fit=crop&w=400&q=75',
+  w12: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=600&q=80',
+  k1: 'https://images.unsplash.com/photo-1503919005314-30d93d07d823?auto=format&fit=crop&w=600&q=80',
+  k2: 'https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&w=600&q=80',
+  k3: 'https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=600&q=80',
+  k4: 'https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?auto=format&fit=crop&w=400&q=75',
+  k5: 'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=400&q=75',
+  k6: 'https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&w=600&q=80',
+  k7: 'https://images.unsplash.com/photo-1560506840-ec148e82a604?auto=format&fit=crop&w=400&q=75',
+  k8: 'https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=400&q=75',
+  s1: 'https://images.unsplash.com/photo-1556821840-3a63f15732ce?auto=format&fit=crop&w=400&q=75',
+  s2: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=400&q=75',
+  s3: 'https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=400&q=75',
+  s4: 'https://images.unsplash.com/photo-1563170351-be82bc888aa4?auto=format&fit=crop&w=400&q=75',
+  s5: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=400&q=75',
+  s6: 'https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=600&q=80',
+  s7: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80',
+  s8: 'https://images.unsplash.com/photo-1542272454315-4c01d7abdf4a?auto=format&fit=crop&w=400&q=75',
+  s9: 'https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=400&q=75',
+  s10: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80',
+  a1: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=400&q=75',
+  a2: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=400&q=75',
+  a3: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=400&q=75',
+  a4: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=75',
+  a5: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=400&q=75',
+  a6: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=400&q=75',
+  a7: 'https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=600&q=80',
+  a8: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=400&q=75',
+  a9: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=400&q=75',
+  a10: 'https://images.unsplash.com/photo-1521369909029-2afed882baee?auto=format&fit=crop&w=400&q=75',
+  sl1: 'https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?auto=format&fit=crop&w=400&q=75',
+  sl2: 'https://images.unsplash.com/photo-1550246140-5119ae4790b8?auto=format&fit=crop&w=400&q=75',
+  sl3: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80',
+  sl4: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=600&q=80',
+  sl5: 'https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=400&q=75',
+  sl6: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80',
+  sl7: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=400&q=75',
+  sl8: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=75',
+  sl9: 'https://images.unsplash.com/photo-1563630423918-b58f07336ac9?auto=format&fit=crop&w=600&q=80',
+  sl10: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=400&q=75',
+  sl11: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=400&q=75',
+  sl12: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=400&q=75',
+  lx1: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80',
+  lx2: 'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?auto=format&fit=crop&w=400&q=75',
+  lx3: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=400&q=75',
+  lx4: 'https://images.unsplash.com/photo-1566206091558-7f218b696731?auto=format&fit=crop&w=400&q=75',
+  lx5: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=75',
+  lx6: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=400&q=75',
+  sh1: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=75',
+  sh2: 'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=400&q=75',
+  sh3: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=400&q=75',
+  sh4: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=400&q=75',
+  sh5: 'https://images.unsplash.com/photo-1603487742131-4160ec999306?auto=format&fit=crop&w=400&q=75',
+  sh6: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=400&q=75',
+  sh7: 'https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?auto=format&fit=crop&w=400&q=75',
+  sh8: 'https://images.unsplash.com/photo-1556048219-bb6978360b84?auto=format&fit=crop&w=400&q=75',
+  sh9: 'https://images.unsplash.com/photo-1605812860427-4024433a70fd?auto=format&fit=crop&w=400&q=75',
+  sh10: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=400&q=75',
+  ni1: 'https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?auto=format&fit=crop&w=400&q=75',
+  ni2: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=400&q=75',
+  ni3: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=400&q=75',
+  ni4: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=400&q=75',
+  ni5: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=75',
+  ni6: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=600&q=80',
+  ni7: 'https://images.unsplash.com/photo-1617922001439-4a2e6562f328?auto=format&fit=crop&w=400&q=75',
+  ni8: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80',
+  s1: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=400&q=75',
+  s2: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=400&q=75',
+  s3: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=400&q=75',
+  s4: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=400&q=75',
+  s5: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=400&q=75',
+  a1: 'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?auto=format&fit=crop&w=400&q=75',
+  a2: 'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?auto=format&fit=crop&w=400&q=75',
+  a3: 'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?auto=format&fit=crop&w=400&q=75',
 };
 
 const ALL_PRODUCTS={
@@ -308,11 +407,11 @@ function VividLogo({theme,onClick,size=28}){
         <circle cx="18" cy="25" r="2" fill={p}/>
       </svg>
       {/* Wordmark */}
-    <span style={{
+    <span className="logo-text gradient-text" style={{
     fontFamily: "'Bebas Neue',sans-serif",
     fontSize: size,
     letterSpacing: 5,
-    color: '#000000',
+    color: '#ffffff',
     fontWeight: 700,
     lineHeight: 1,
 }}>VIVID</span>
@@ -333,44 +432,79 @@ const NAV_ITEMS=[
   {id:'sale',label:'SALE 🔥'},
 ];
 
+/* ═══ MOBILE SIDEBAR ═══ */
+function MobileSidebar({open,setOpen,setPage,theme,currentPage}){
+  return(
+    <>
+      <div onClick={()=>setOpen(false)} style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.85)',backdropFilter:'blur(8px)',zIndex:2000,opacity:open?1:0,pointerEvents:open?'all':'none',transition:'opacity 0.4s'}}/>
+      <div style={{position:'fixed',top:0,left:0,width:'min(320px, 85%)',height:'100vh',background:'#050505',borderRight:'1px solid rgba(255,255,255,0.08)',zIndex:2001,padding:'24px 20px',display:'flex',flexDirection:'column',transition:'transform 0.4s cubic-bezier(0.16,1,0.3,1)',transform:open?'translateX(0)':'translateX(-100%)'}}>
+        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:40}}>
+          <VividLogo theme={theme} onClick={()=>{setPage('home');setOpen(false)}} size={24}/>
+          <button onClick={()=>setOpen(false)} style={{background:'rgba(255,255,255,0.06)',border:'none',color:'#fff',width:36,height:36,borderRadius:'50%',fontSize:14}}>✕</button>
+        </div>
+        <div style={{flex:1,overflowY:'auto'}}>
+          <div style={{fontSize:10,fontWeight:800,letterSpacing:3,color:'rgba(255,255,255,0.3)',marginBottom:20,textTransform:'uppercase'}}>Navigation</div>
+          <div style={{display:'flex',flexDirection:'column',gap:12}}>
+            {NAV_ITEMS.map(item=>(
+              <button key={item.id} onClick={()=>{setPage(item.id);setOpen(false)}}
+                style={{background:currentPage===item.id?`${theme.primary}15`:'transparent',border:currentPage===item.id?`1px solid ${theme.primary}30`:'1px solid transparent',color:currentPage===item.id?theme.primary:'#fff',padding:'12px 16px',borderRadius:12,fontSize:14,fontWeight:currentPage===item.id?700:500,textAlign:'left',transition:'all 0.2s',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+                {item.label}
+                {currentPage===item.id && <span style={{fontSize:10}}>✦</span>}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div style={{marginTop:'auto',paddingTop:20,borderTop:'1px solid rgba(255,255,255,0.05)'}}>
+          <div style={{fontSize:12,color:'rgba(255,255,255,0.4)',marginBottom:16}}>Follow VIVID</div>
+          <div style={{display:'flex',gap:12}}>
+            {[
+              {name:'IG',url:'https://instagram.com/vividfashion.pk'},
+              {name:'FB',url:'https://facebook.com/vividfashion.pk'},
+              {name:'TT',url:'https://tiktok.com/@vividfashion.pk'}
+            ].map(s=>(
+              <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" style={{width:32,height:32,borderRadius:8,background:'rgba(255,255,255,0.05)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:800,color:'rgba(255,255,255,0.6)',textDecoration:'none'}}>{s.name}</a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 /* ═══ NAVBAR ═══ */
-function Navbar({currentPage,setPage,cartCount,wishCount,setCartOpen,setWishlistOpen,setProfileOpen}){
+function Navbar({currentPage,setPage,cartCount,wishCount,setCartOpen,setWishlistOpen,setProfileOpen,setMenuOpen}){
   const t=PAGE_THEMES[currentPage]||PAGE_THEMES.home;
   return(
-    <nav style={{position:'fixed',top:0,left:0,right:0,zIndex:1000,background:'rgba(5,5,5,0.97)',backdropFilter:'blur(24px)',borderBottom:`1px solid ${t.primary}28`,transition:'border-color 0.4s'}}>
-      <div style={{padding:'0 28px',height:62,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <VividLogo theme={t} onClick={()=>setPage('home')} size={26}/>
-        <div style={{display:'flex',gap:2,overflowX:'auto',scrollbarWidth:'none',flex:1,margin:'0 16px'}}>
+    <nav className="glass-card" style={{position:'fixed',top:0,left:0,right:0,zIndex:1000,background:'rgba(5,5,5,0.85)',backdropFilter:'blur(20px)',transition:'all 0.4s'}}>
+      <div style={{padding:'0 16px',height:64,display:'flex',alignItems:'center',justifyContent:'space-between',maxWidth:1400,margin:'0 auto'}}>
+        <div style={{display:'flex',alignItems:'center',gap:12}}>
+          <button className="menu-btn" onClick={()=>setMenuOpen(true)}
+            style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',color:'#fff',width:38,height:38,borderRadius:10,fontSize:18,display:'none',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>
+            ☰
+          </button>
+          <VividLogo theme={t} onClick={()=>setPage('home')} size={24}/>
+        </div>
+        <div className="nav-categories" style={{display:'flex',gap:2,overflowX:'auto',scrollbarWidth:'none',msOverflowStyle:'none',flex:1,margin:'0 12px',maskImage:'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'}}>
           {NAV_ITEMS.map(item=>(
             <button key={item.id} onClick={()=>setPage(item.id)}
-              style={{background:currentPage===item.id?`${t.primary}20`:'none',border:currentPage===item.id?`1px solid ${t.primary}50`:'1px solid transparent',color:currentPage===item.id?t.primary:'rgba(255,255,255,0.6)',padding:'6px 12px',borderRadius:6,fontSize:11.5,fontWeight:600,letterSpacing:'0.6px',cursor:'pointer',whiteSpace:'nowrap',transition:'all 0.2s',fontFamily:"'Outfit',sans-serif",boxShadow:currentPage===item.id?`0 0 12px ${t.primary}30`:undefined}}>
+              className="nav-btn"
+              style={{background:currentPage===item.id?`${t.primary}20`:'none',border:currentPage===item.id?`1px solid ${t.primary}50`:'1px solid transparent',color:currentPage===item.id?t.primary:'rgba(255,255,255,0.6)',padding:'6px 12px',borderRadius:6,fontSize:10.5,fontWeight:600,letterSpacing:'0.6px',cursor:'pointer',whiteSpace:'nowrap',transition:'all 0.2s',fontFamily:"'Outfit',sans-serif"}}>
               {item.label}
             </button>
           ))}
         </div>
-        <div style={{display:'flex',gap:10,alignItems:'center',flexShrink:0}}>
-          {/* Cart */}
-          <button onClick={()=>setCartOpen(true)} title="Shopping Cart"
-            style={{background:'none',border:'1px solid rgba(255,255,255,0.1)',color:'#fff',width:38,height:38,borderRadius:10,fontSize:17,cursor:'pointer',position:'relative',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s'}}
-            onMouseEnter={e=>{e.currentTarget.style.borderColor=t.primary;e.currentTarget.style.background=`${t.primary}15`}}
-            onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,0.1)';e.currentTarget.style.background='none'}}>
-            🛒
-            {cartCount>0&&<span style={{position:'absolute',top:-4,right:-4,background:t.primary,color:'#fff',fontSize:9,width:16,height:16,borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,boxShadow:`0 0 8px ${t.primary}`}}>{cartCount}</span>}
-          </button>
+        <div style={{display:'flex',gap:8,alignItems:'center',flexShrink:0}}>
           {/* Wishlist */}
-          <button onClick={()=>setWishlistOpen(true)} title="My Wishlist"
-            style={{background:'none',border:'1px solid rgba(255,255,255,0.1)',color:'#fff',width:38,height:38,borderRadius:10,fontSize:17,cursor:'pointer',position:'relative',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s'}}
-            onMouseEnter={e=>{e.currentTarget.style.borderColor='#FF2D78';e.currentTarget.style.background='rgba(255,45,120,0.15)'}}
-            onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,0.1)';e.currentTarget.style.background='none'}}>
+          <button onClick={()=>setWishlistOpen(true)} className="btn-premium"
+            style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',color:'#fff',width:40,height:40,borderRadius:12,fontSize:18,display:'flex',alignItems:'center',justifyContent:'center',position:'relative'}}>
             ❤️
-            {wishCount>0&&<span style={{position:'absolute',top:-4,right:-4,background:'#FF2D78',color:'#fff',fontSize:9,width:16,height:16,borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,boxShadow:'0 0 8px rgba(255,45,120,0.8)'}}>{wishCount}</span>}
+            {wishCount>0&&<span style={{position:'absolute',top:-8,right:-8,background:'#FF2D78',color:'#fff',fontSize:10,width:20,height:20,borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,boxShadow:`0 4px 10px rgba(255,45,120,0.6)`,zIndex:10}}> {wishCount} </span>}
           </button>
-          {/* Profile */}
-          <button onClick={()=>setProfileOpen(true)} title="My Account"
-            style={{background:'none',border:'1px solid rgba(255,255,255,0.1)',color:'#fff',width:38,height:38,borderRadius:10,fontSize:17,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s'}}
-            onMouseEnter={e=>{e.currentTarget.style.borderColor='#7B2FFF';e.currentTarget.style.background='rgba(123,47,255,0.15)'}}
-            onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,0.1)';e.currentTarget.style.background='none'}}>
-            👤
+          {/* Cart */}
+          <button onClick={()=>setCartOpen(true)} className="btn-premium"
+            style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',color:'#fff',width:40,height:40,borderRadius:12,fontSize:18,position:'relative',display:'flex',alignItems:'center',justifyContent:'center'}}>
+            🛒
+            {cartCount>0&&<span style={{position:'absolute',top:-8,right:-8,background:t.primary,color:'#fff',fontSize:10,width:20,height:20,borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,boxShadow:`0 4px 10px ${t.primary}66`,zIndex:10}}> {cartCount} </span>}
           </button>
         </div>
       </div>
@@ -382,49 +516,63 @@ function Navbar({currentPage,setPage,cartCount,wishCount,setCartOpen,setWishlist
 function ProductCard({product,theme,onAddCart,onWishlist,isWished}){
   const [hover,setHover]=useState(false);
   const [imgErr,setImgErr]=useState(false);
+  const [tilt,setTilt]=useState({x:0,y:0});
+  const cardRef=useRef(null);
+
+  const handleMove=(e)=>{
+    const rect=cardRef.current.getBoundingClientRect();
+    const x=(e.clientX-rect.left)/rect.width-0.5;
+    const y=(e.clientY-rect.top)/rect.height-0.5;
+    setTilt({x:y*15,y:x*-15});
+  };
+
+  const handleLeave=()=>{
+    setTilt({x:0,y:0});
+    setHover(false);
+  };
   const discount=product.old?Math.round((1-product.price/product.old)*100):null;
   const img=PRODUCT_IMAGES[product.id];
   return(
-    <div onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
-      style={{background:theme.bg2,borderRadius:16,overflow:'hidden',border:`1px solid ${hover?theme.primary+'66':'rgba(255,255,255,0.05)'}`,transform:hover?'translateY(-8px)':'translateY(0)',boxShadow:hover?`0 24px 48px rgba(0,0,0,0.6),0 0 0 1px ${theme.primary}20,0 0 30px ${theme.primary}10`:'0 4px 16px rgba(0,0,0,0.3)',transition:'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',cursor:'pointer',position:'relative'}}>
-      <div style={{height:240,position:'relative',overflow:'hidden'}}>
+    <div ref={cardRef} onMouseMove={handleMove} onMouseLeave={handleLeave} onMouseEnter={()=>setHover(true)}
+      style={{position:'relative',background:theme.bg2,borderRadius:24,overflow:'hidden',border:`1px solid ${theme.primary}18`,cursor:'pointer',transition:'transform 0.1s ease-out, box-shadow 0.3s ease',transform:`perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateY(${hover?-10:0}px)`,boxShadow:hover?`0 25px 50px -12px ${theme.primary}33`:undefined,transformStyle:'preserve-3d'}}>
+      <div style={{aspectRatio:'4/5',position:'relative',overflow:'visible',height:'auto'}}>
         {img&&!imgErr?(
           <img src={img} alt={product.name} onError={()=>setImgErr(true)}
-            style={{width:'100%',height:'100%',objectFit:'cover',transition:'transform 0.5s',transform:hover?'scale(1.1)':'scale(1)'}}/>
+            style={{width:'100%',height:'100%',objectFit:'cover',display:'block',transition:'transform 0.5s',transform:hover?'scale(1.1)':'scale(1)'}}/>
         ):(
-          <div style={{width:'100%',height:'100%',background:`linear-gradient(135deg,${theme.primary}20,${theme.secondary}20)`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:72}}>👗</div>
+          <div style={{width:'100%',height:'100%',minHeight:'100%',background:`linear-gradient(135deg,${theme.primary}20,${theme.secondary}20)`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:72}}>👗</div>
         )}
-        <div style={{position:'absolute',inset:0,background:'linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 55%)'}}/>
+        <div style={{position:'absolute',inset:0,background:'linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 55%)',pointerEvents:'none'}}/>
         {product.tag&&(
           <span style={{position:'absolute',top:10,left:10,padding:'4px 10px',borderRadius:100,fontSize:9,fontWeight:800,letterSpacing:1.5,background:product.tag==='sale'?'#FF4500':product.tag==='luxury'?'#C9A84C':product.tag==='new'?theme.primary:'#FF6B00',color:product.tag==='luxury'?'#000':'#fff',boxShadow:`0 4px 12px rgba(0,0,0,0.4)`}}>
             {product.tag==='sale'&&discount?`-${discount}%`:product.tag==='new'?'✦ NEW':product.tag==='luxury'?'✧ LUXURY':'🔥 HOT'}
           </span>
         )}
-        <button onClick={(e)=>{e.stopPropagation();onWishlist(product.id)}}
+        <button onClick={(e)=>{e.stopPropagation();onWishlist(product.id)}} className="wishlist-btn"
           style={{position:'absolute',top:10,right:10,background:isWished?'rgba(255,45,120,0.9)':'rgba(0,0,0,0.6)',backdropFilter:'blur(8px)',border:`1px solid ${isWished?'#FF2D78':'rgba(255,255,255,0.15)'}`,width:34,height:34,borderRadius:'50%',fontSize:14,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',opacity:hover||isWished?1:0,transition:'all 0.3s',boxShadow:isWished?'0 0 16px rgba(255,45,120,0.6)':undefined}}>
           {isWished?'❤️':'🤍'}
         </button>
       </div>
-      <div style={{padding:'14px 16px'}}>
+      <div className="product-info" style={{padding:'14px 16px'}}>
         <div style={{fontSize:10,color:theme.primary,letterSpacing:2,textTransform:'uppercase',marginBottom:3,fontWeight:700}}>VIVID</div>
-        <div style={{fontSize:14,fontWeight:700,color:'#fff',marginBottom:4,lineHeight:1.3}}>{product.name}</div>
-        {product.desc&&<div style={{fontSize:11.5,color:'rgba(255,255,255,0.4)',marginBottom:8}}>{product.desc}</div>}
-        <div style={{display:'flex',gap:5,marginBottom:10}}>
+        <div className="product-name" style={{fontSize:14,fontWeight:700,color:'#fff',marginBottom:4,lineHeight:1.3}}>{product.name}</div>
+        {product.desc&&<div className="product-desc" style={{fontSize:11.5,color:'rgba(255,255,255,0.4)',marginBottom:8}}>{product.desc}</div>}
+        <div className="product-colors" style={{display:'flex',gap:5,marginBottom:10}}>
           {(product.colors||[]).map((c,i)=>(
             <div key={i} style={{width:12,height:12,borderRadius:'50%',background:c,border:'1.5px solid rgba(255,255,255,0.25)',boxShadow:`0 0 4px ${c}60`}}/>
           ))}
         </div>
-        <div style={{display:'flex',alignItems:'center',marginBottom:10}}>
+        <div className="product-rating" style={{display:'flex',alignItems:'center',marginBottom:10}}>
           <span style={{color:'#FFB800',fontSize:12}}>{'★'.repeat(Math.floor(product.rating||4))}{'☆'.repeat(5-Math.floor(product.rating||4))}</span>
           <span style={{fontSize:11,color:'rgba(255,255,255,0.35)',marginLeft:5}}>({(product.reviews||0).toLocaleString()})</span>
         </div>
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
           <div>
-            <span style={{fontSize:18,fontWeight:800,color:theme.primary}}>Rs {product.price.toLocaleString()}</span>
+            <span className="product-price" style={{fontSize:18,fontWeight:800,color:theme.primary}}>Rs {product.price.toLocaleString()}</span>
             {product.old&&<span style={{fontSize:11,color:'rgba(255,255,255,0.3)',textDecoration:'line-through',marginLeft:7}}>Rs {product.old.toLocaleString()}</span>}
           </div>
-          <button onClick={()=>onAddCart(product)}
-            style={{background:`linear-gradient(135deg,${theme.primary},${theme.secondary})`,border:'none',color:'#fff',width:36,height:36,borderRadius:10,fontSize:20,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s',fontWeight:700,boxShadow:hover?`0 4px 16px ${theme.primary}60`:undefined,transform:hover?'scale(1.1)':'scale(1)'}}>
+          <button onClick={()=>onAddCart(product)} className="btn-premium product-add-btn"
+            style={{background:`linear-gradient(135deg,${theme.primary},${theme.secondary})`,border:'none',color:'#fff',width:36,height:36,borderRadius:10,fontSize:20,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700}}>
             +
           </button>
         </div>
@@ -436,10 +584,10 @@ function ProductCard({product,theme,onAddCart,onWishlist,isWished}){
 function FilterBar({theme,filters,setFilters,products}){
   const tags=[...new Set(products.map(p=>p.tag).filter(Boolean))];
   return(
-    <div style={{display:'flex',gap:8,flexWrap:'wrap',marginBottom:28}}>
+    <div className="hide-scrollbar" style={{display:'flex',gap:8,overflowX:'auto',paddingBottom:4,marginBottom:28,width:'100%'}}>
       {[['all','All'],['price_asc','Price ↑'],['price_desc','Price ↓'],['rating','Top Rated'],...tags.map(t=>[t,t.toUpperCase()])].map(([val,label])=>(
         <button key={val} onClick={()=>setFilters(f=>({...f,sort:val}))}
-          style={{background:filters.sort===val?`linear-gradient(135deg,${theme.primary},${theme.secondary})`:'rgba(255,255,255,0.05)',border:`1px solid ${filters.sort===val?'transparent':'rgba(255,255,255,0.08)'}`,color:filters.sort===val?'#fff':'rgba(255,255,255,0.55)',padding:'7px 18px',borderRadius:100,fontSize:12,fontWeight:600,cursor:'pointer',transition:'all 0.2s',fontFamily:"'Outfit',sans-serif",letterSpacing:'0.5px',boxShadow:filters.sort===val?`0 4px 16px ${theme.primary}40`:undefined}}>
+          style={{flexShrink:0,whiteSpace:'nowrap',background:filters.sort===val?`linear-gradient(135deg,${theme.primary},${theme.secondary})`:'rgba(255,255,255,0.05)',border:`1px solid ${filters.sort===val?'transparent':'rgba(255,255,255,0.08)'}`,color:filters.sort===val?'#fff':'rgba(255,255,255,0.55)',padding:'7px 18px',borderRadius:100,fontSize:12,fontWeight:600,cursor:'pointer',transition:'all 0.2s',fontFamily:"'Outfit',sans-serif",letterSpacing:'0.5px',boxShadow:filters.sort===val?`0 4px 16px ${theme.primary}40`:undefined}}>
           {label}
         </button>
       ))}
@@ -464,7 +612,7 @@ function CartSidebar({cart,setCart,open,setOpen,theme}){
   return(
     <>
       <div onClick={()=>setOpen(false)} style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.8)',backdropFilter:'blur(4px)',zIndex:2000,opacity:open?1:0,pointerEvents:open?'all':'none',transition:'opacity 0.3s'}}/>
-      <div style={{position:'fixed',top:0,right:open?0:-520,width:460,height:'100vh',background:'linear-gradient(180deg,#0e0e0e 0%,#080808 100%)',borderLeft:'1px solid rgba(255,255,255,0.06)',zIndex:2001,padding:24,overflowY:'auto',transition:'right 0.4s cubic-bezier(0.34,1.56,0.64,1)',display:'flex',flexDirection:'column'}}>
+      <div style={{position:'fixed',top:0,right:0,width:'min(460px, 100%)',height:'100vh',background:'linear-gradient(180deg,#0e0e0e 0%,#080808 100%)',borderLeft:'1px solid rgba(255,255,255,0.06)',zIndex:2001,padding:24,overflowY:'auto',transition:'transform 0.4s cubic-bezier(0.34,1.56,0.64,1)',display:'flex',flexDirection:'column',transform:open?'translateX(0)':'translateX(100%)'}}>
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:24}}>
           <div style={{display:'flex',alignItems:'center',gap:12}}>
             <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:24,letterSpacing:3}}>MY CART</div>
@@ -610,12 +758,14 @@ function ProfileModal({open,setOpen}){
 /* ═══ HOME PAGE 3D HERO ═══ */
 function HeroScene3D(){
   const cards=[
-    {img:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&q=80',label:'New Arrival',price:'Rs 8,500',anim:'hero-card-1',top:'5%',left:'8%',rot:'-8deg'},
-    {img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&q=80',label:'Best Seller',price:'Rs 6,200',anim:'hero-card-2',top:'28%',left:'42%',rot:'6deg'},
-    {img:'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=300&q=80',label:'Trending Now',price:'Rs 5,500',anim:'hero-card-3',top:'2%',left:'56%',rot:'-4deg'},
+    {img:'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80',
+     label:'New Arrival',price:'Rs 8,500',anim:'hero-card-1',top:'5%',left:'8%',rot:'-8deg'},
+    {img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',label:'Best Seller',price:'Rs 6,200',anim:'hero-card-2',top:'28%',left:'42%',rot:'6deg'},
+    {img:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80',
+     label:'Trending Now',price:'Rs 5,500',anim:'hero-card-3',top:'2%',left:'56%',rot:'-4deg'},
   ];
   return(
-    <div style={{position:'absolute',right:0,top:0,bottom:0,width:'52%',overflow:'hidden',perspective:1400}}>
+    <div className="hero-scene-container" style={{position:'absolute',right:0,top:0,bottom:0,width:'52%',overflow:'hidden',perspective:1400}}>
       {/* Deep background gradient orbs */}
       <div style={{position:'absolute',width:500,height:500,borderRadius:'50%',background:'radial-gradient(circle,rgba(255,45,120,0.18) 0%,transparent 70%)',top:'10%',right:'5%',animation:'pulseBig 4s ease-in-out infinite',pointerEvents:'none'}}/>
       <div style={{position:'absolute',width:350,height:350,borderRadius:'50%',background:'radial-gradient(circle,rgba(123,47,255,0.15) 0%,transparent 70%)',bottom:'5%',left:'10%',animation:'pulseBig 5s ease-in-out infinite',animationDelay:'-2s',pointerEvents:'none'}}/>
@@ -631,7 +781,7 @@ function HeroScene3D(){
       ))}
       {/* Floating 3D product cards */}
       {cards.map((c,i)=>(
-        <div key={i} className={c.anim} style={{position:'absolute',top:c.top,left:c.left,transformStyle:'preserve-3d',zIndex:3-i}}>
+        <div key={i} className={`${c.anim} hero-card-container`} style={{position:'absolute',top:c.top,left:c.left,transformStyle:'preserve-3d',zIndex:3-i,transition:'all 0.5s ease'}}>
           <div style={{
             width:150,height:200,borderRadius:20,overflow:'hidden',
             background:'rgba(15,15,20,0.92)',
@@ -671,11 +821,11 @@ function HeroScene3D(){
 /* ═══ CATEGORY PAGE 3D HERO ═══ */
 function CategoryHero3D({cfg,theme,products}){
   return(
-    <div style={{padding:'100px 48px 64px',position:'relative',overflow:'hidden',borderBottom:`1px solid ${theme.primary}18`}}>
+    <div className="responsive-section" style={{minHeight:400,borderBottom:`1px solid ${theme.primary}18`}}>
       {/* Multi-layer gradient bg */}
       <div style={{position:'absolute',inset:0,background:`radial-gradient(ellipse 80% 90% at 0% 50%,${theme.primary}14 0%,transparent 55%),radial-gradient(ellipse 50% 70% at 90% 20%,${theme.secondary}10 0%,transparent 50%),radial-gradient(ellipse 40% 60% at 60% 80%,${theme.primary}08 0%,transparent 50%)`}}/>
       {/* Animated 3D shape right side */}
-      <div style={{position:'absolute',right:'8%',top:'50%',transform:'translateY(-50%)',width:260,height:260,display:'flex',alignItems:'center',justifyContent:'center'}}>
+      <div className="hero-scene-container" style={{position:'absolute',right:'5%',top:'50%',transform:'translateY(-50%)',width:'clamp(200px, 25vw, 260px)',height:'clamp(200px, 25vw, 260px)',display:'flex',alignItems:'center',justifyContent:'center'}}>
         {/* Morphing blob */}
         <div style={{position:'absolute',width:220,height:220,background:`radial-gradient(circle,${theme.primary}25,${theme.secondary}15,transparent 70%)`,animation:'morphBlob 6s ease-in-out infinite',filter:'blur(2px)'}}/>
         {/* Giant letter */}
@@ -694,9 +844,12 @@ function CategoryHero3D({cfg,theme,products}){
       {products.slice(0,2).map((p,i)=>{
         const img=PRODUCT_IMAGES[p.id];
         return(
-          <div key={p.id} style={{position:'absolute',right:`${28+i*22}%`,top:i===0?'12%':'auto',bottom:i===1?'10%':'auto',zIndex:2,animation:`tilt3d${i+1} ${5+i}s ease-in-out infinite`}}>
+          <div key={p.id} className={`tilt3d${i+1} hero-card-container cat-hero-cards`} style={{position:'absolute',right:`${28+i*22}%`,top:i===0?'12%':'auto',bottom:i===1?'10%':'auto',zIndex:2,transition:'all 0.5s ease',transformStyle:'preserve-3d'}}>
             <div style={{width:110,height:145,borderRadius:16,overflow:'hidden',background:'rgba(12,12,16,0.9)',border:`1px solid ${theme.primary}25`,boxShadow:`0 20px 50px rgba(0,0,0,0.6),0 0 20px ${theme.primary}20`,backdropFilter:'blur(10px)',transform:`rotateZ(${i===0?'-6':'5'}deg)`}}>
-              {img&&<img src={img} alt={p.name} style={{width:'100%',height:100,objectFit:'cover'}}/>}
+              {img ? (
+                <img src={img} alt={p.name} style={{width:'100%',height:100,objectFit:'cover'}} onError={(e)=>{e.target.style.display='none'; e.target.nextSibling.style.display='flex'}}/>
+              ) : null}
+              <div style={{width:'100%',height:100,display:img?'none':'flex',alignItems:'center',justifyContent:'center',fontSize:40,background:`linear-gradient(45deg,${theme.primary}20,${theme.secondary}20)`}}>👕</div>
               <div style={{padding:'6px 8px'}}>
                 <div style={{fontSize:8,color:theme.primary,fontWeight:800,letterSpacing:1}}>VIVID</div>
                 <div style={{fontSize:11,fontWeight:700,color:'#fff'}}>Rs {p.price.toLocaleString()}</div>
@@ -709,7 +862,7 @@ function CategoryHero3D({cfg,theme,products}){
       {[...Array(8)].map((_,i)=>(
         <div key={i} style={{position:'absolute',width:5,height:5,borderRadius:'50%',background:i%2===0?theme.primary:theme.secondary,left:`${60+i*4}%`,top:`${15+i*10}%`,animation:`pulse ${1.5+i*0.3}s ease-in-out infinite`,animationDelay:`${i*0.2}s`,boxShadow:`0 0 10px ${i%2===0?theme.primary:theme.secondary}`,pointerEvents:'none'}}/>
       ))}
-      <div style={{position:'relative',zIndex:2}}>
+      <div className="cat-hero-content" style={{position:'relative',zIndex:2,maxWidth:'55%'}}>
         <div style={{display:'inline-flex',alignItems:'center',gap:8,background:`${theme.primary}15`,border:`1px solid ${theme.primary}35`,color:theme.primary,padding:'5px 16px',borderRadius:100,fontSize:10,fontWeight:800,letterSpacing:2.5,marginBottom:20}}>
           <span style={{width:5,height:5,borderRadius:'50%',background:theme.primary,animation:'pulse 1.5s infinite'}}/>
           {cfg.sub.toUpperCase()}
@@ -719,7 +872,7 @@ function CategoryHero3D({cfg,theme,products}){
           <span style={{color:'#fff'}}>{cfg.title.split(' ').slice(1).join(' ')}</span>
         </h1>
         <p style={{fontSize:16,color:'rgba(255,255,255,0.45)',maxWidth:480,marginBottom:32,lineHeight:1.75}}>{cfg.hero}</p>
-        <div style={{display:'flex',gap:28,flexWrap:'wrap'}}>
+        <div className="cat-hero-stats" style={{display:'flex',gap:28,flexWrap:'wrap'}}>
           {[`${products.length} Products`,`From Rs ${Math.min(...products.map(p=>p.price)).toLocaleString()}`,`Free Delivery`].map((s,i)=>(
             <div key={i} style={{display:'flex',alignItems:'center',gap:8,fontSize:13,color:'rgba(255,255,255,0.55)'}}>
               <span style={{width:7,height:7,borderRadius:'50%',background:theme.primary,display:'inline-block',boxShadow:`0 0 8px ${theme.primary}`}}/>
@@ -736,52 +889,48 @@ function CategoryHero3D({cfg,theme,products}){
 function HomePage({setPage,theme}){
   const marquee=['New Season 2026','50% Off Sale','Free Delivery','Premium Quality','Exclusive Designs','Pakistani Brands'];
   const featured=[
-    {page:'women',img:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80',title:"Women's",color:'#FF6B9D',count:'2.4K+ styles'},
-    {page:'men',img:'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80',title:"Men's",color:'#00C2FF',count:'1.8K+ styles'},
-    {page:'streetwear',img:'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&q=80',title:'Streetwear',color:'#39FF14',count:'890+ styles'},
-    {page:'shoes',img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80',title:'Shoes',color:'#7C3AED',count:'560+ styles'},
-    {page:'kids',img:'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80',title:"Kids'",color:'#FFD60A',count:'680+ styles'},
-    {page:'accessories',img:'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80',title:'Accessories',color:'#D4A017',count:'1.2K+ styles'},
-    {page:'luxury',img:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80',title:'Luxury',color:'#C9A84C',count:'180+ styles'},
-    {page:'newin',img:'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&q=80',title:'New In',color:'#06D6A0',count:'320+ styles'},
+    {page:'women',img:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80',title:"Women's",color:'#FF00FF',count:'2.4K+ styles'},
+    {page:'men',img:'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=600&q=80',title:"Men's",color:'#00D2FF',count:'1.8K+ styles'},
+    {page:'streetwear',img:'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80',title:'Streetwear',color:'#39FF14',count:'890+ styles'},
+    {page:'shoes',img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',title:'Shoes',color:'#7C3AED',count:'560+ styles'},
+    {page:'kids',img:'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=600&q=80',title:"Kids'",color:'#FFD700',count:'680+ styles'},
+    {page:'accessories',img:'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?auto=format&fit=crop&w=600&q=80',title:'Accessories',color:'#D4A017',count:'1.2K+ styles'},
+    {page:'luxury',img:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80',title:'Luxury',color:'#C9A84C',count:'180+ styles'},
+    {page:'newin',img:'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80',title:'New In',color:'#06D6A0',count:'320+ styles'},
   ];
   return(
     <div className="page">
       {/* ═══ HERO ═══ */}
-      <section style={{minHeight:'100vh',position:'relative',display:'flex',alignItems:'center',padding:'110px 48px 60px',overflow:'hidden',background:'#050505'}}>
+      <section className="responsive-section" style={{minHeight:'100vh',background:'#050505'}}>
         {/* Background layers */}
         <div style={{position:'absolute',inset:0,background:'radial-gradient(ellipse 60% 80% at 15% 60%,rgba(255,45,120,0.12) 0%,transparent 55%),radial-gradient(ellipse 50% 60% at 80% 20%,rgba(123,47,255,0.1) 0%,transparent 50%)'}}/>
         <div style={{position:'absolute',inset:0,backgroundImage:'linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px)',backgroundSize:'55px 55px'}}/>
         {/* Floating massive text bg */}
-        <div style={{position:'absolute',left:-40,top:'50%',transform:'translateY(-50%)',fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(200px,30vw,400px)',color:'rgba(255,255,255,0.015)',letterSpacing:-20,userSelect:'none',lineHeight:1,pointerEvents:'none'}}>VIVID</div>
+        <div style={{position:'absolute',left:-40,top:'50%',transform:'translateY(-50%)',fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(150px, 30vw, 400px)',color:'rgba(255,255,255,0.015)',letterSpacing:-20,userSelect:'none',lineHeight:1,pointerEvents:'none'}}>VIVID</div>
         {/* Left content */}
-        <div style={{position:'relative',zIndex:2,maxWidth:580,animation:'slideInLeft 0.7s ease both'}}>
+        <div className="hero-content" style={{position:'relative',zIndex:2,maxWidth:580,animation:'slideInLeft 0.7s ease both'}}>
           <div style={{display:'inline-flex',alignItems:'center',gap:8,background:'rgba(255,45,120,0.1)',border:'1px solid rgba(255,45,120,0.28)',color:'#FF2D78',padding:'6px 18px',borderRadius:100,fontSize:10,fontWeight:800,letterSpacing:2.5,textTransform:'uppercase',marginBottom:28}}>
             <span style={{width:6,height:6,borderRadius:'50%',background:'#FF2D78',animation:'pulse 1.5s infinite'}}/>
             New Collection 2026 — Live Now
           </div>
-          <h1 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(80px,11vw,145px)',lineHeight:0.85,letterSpacing:3,marginBottom:28}}>
+          <h1 className="neon-text" style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(50px, 11vw, 145px)',lineHeight:0.85,letterSpacing:-2,marginBottom:24,animation:'slideInLeft 0.8s cubic-bezier(0.16,1,0.3,1)'}}>
             <div style={{color:'#FF2D78',animation:'neonFlicker 4s infinite',textShadow:'0 0 40px rgba(255,45,120,0.4)'}}>DRESS</div>
             <div style={{WebkitTextStroke:'2px rgba(255,255,255,0.7)',color:'transparent'}}>YOUR</div>
-            <div style={{background:'linear-gradient(90deg,#C8FF00,#39FF14)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',textShadow:'none'}}>VIBE</div>
+            <div style={{background:'linear-gradient(90deg,#C8FF00,#39FF14)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',textShadow:'none'}} className="gradient-text">VIBE</div>
           </h1>
           <p style={{fontSize:16,color:'rgba(255,255,255,0.5)',lineHeight:1.8,maxWidth:460,marginBottom:36}}>Pakistan's #1 fashion destination. Every style, every mood — 5000+ premium products just for you.</p>
-          <div style={{display:'flex',gap:14,flexWrap:'wrap'}}>
-            <button onClick={()=>setPage('newin')}
-              style={{background:'linear-gradient(135deg,#FF2D78,#7B2FFF)',color:'#fff',border:'none',padding:'16px 40px',borderRadius:6,fontSize:13,fontWeight:800,letterSpacing:2,cursor:'pointer',transition:'all 0.3s',fontFamily:"'Outfit',sans-serif",boxShadow:'0 8px 32px rgba(255,45,120,0.4)',animation:'glow 2.5s ease-in-out infinite'}}
-              onMouseEnter={e=>{e.target.style.transform='translateY(-2px) scale(1.02)';e.target.style.boxShadow='0 16px 48px rgba(255,45,120,0.6)'}}
-              onMouseLeave={e=>{e.target.style.transform='';e.target.style.boxShadow='0 8px 32px rgba(255,45,120,0.4)'}}>
+          <div className="hero-cta-group" style={{display:'flex',gap:14,flexWrap:'wrap'}}>
+            <button onClick={()=>setPage('newin')} className="btn-premium btn-pulse"
+              style={{background:'linear-gradient(135deg,#FF2D78,#7B2FFF)',color:'#fff',border:'none',padding:'16px 40px',borderRadius:6,fontSize:13,fontWeight:800,letterSpacing:2,fontFamily:"'Outfit',sans-serif"}}>
               SHOP NOW →
             </button>
-            <button onClick={()=>setPage('sale')}
-              style={{background:'transparent',color:'#fff',border:'1.5px solid rgba(255,255,255,0.2)',padding:'16px 36px',borderRadius:6,fontSize:13,fontWeight:700,letterSpacing:2,cursor:'pointer',fontFamily:"'Outfit',sans-serif",backdropFilter:'blur(8px)',transition:'all 0.2s'}}
-              onMouseEnter={e=>{e.target.style.borderColor='rgba(255,255,255,0.5)';e.target.style.background='rgba(255,255,255,0.05)'}}
-              onMouseLeave={e=>{e.target.style.borderColor='rgba(255,255,255,0.2)';e.target.style.background='transparent'}}>
+            <button onClick={()=>setPage('sale')} className="btn-premium"
+              style={{background:'transparent',color:'#fff',border:'1.5px solid rgba(255,255,255,0.2)',padding:'16px 36px',borderRadius:6,fontSize:13,fontWeight:700,letterSpacing:2,fontFamily:"'Outfit',sans-serif",backdropFilter:'blur(8px)'}}>
               VIEW SALE 🔥
             </button>
           </div>
-          <div style={{display:'flex',gap:40,marginTop:52}}>
-            {[['50K+','Customers'],['5K+','Products'],['4.9★','Rating'],['Free','Delivery']].map(([n,l])=>(
+          <div className="hero-stats" style={{display:'flex',gap:40,marginTop:52,flexWrap:'wrap'}}>
+            {[['50K+','Customers'],['5K+','Products'],['4.9★','Rating']].map(([n,l])=>(
               <div key={l}>
                 <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:34,background:'linear-gradient(90deg,#FF2D78,#7B2FFF)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',letterSpacing:1}}>{n}</div>
                 <div style={{fontSize:10,color:'rgba(255,255,255,0.35)',letterSpacing:2,textTransform:'uppercase',marginTop:2}}>{l}</div>
@@ -789,8 +938,10 @@ function HomePage({setPage,theme}){
             ))}
           </div>
         </div>
-        {/* 3D Right Scene */}
-        <HeroScene3D/>
+        {/* 3D Right Scene — hidden on mobile for clean layout */}
+        <div className="hero-scene-3d-home">
+          <HeroScene3D/>
+        </div>
       </section>
 
       {/* ═══ MARQUEE ═══ */}
@@ -805,25 +956,23 @@ function HomePage({setPage,theme}){
       </div>
 
       {/* ═══ FEATURED CATEGORIES ═══ */}
-      <section style={{padding:'80px 48px',background:'#050505'}}>
-        <div style={{marginBottom:48}}>
+      <section className="responsive-section" style={{display:'block',background:'#050505'}}>
+      <div className="section-header" style={{marginBottom:40}}>
           <div style={{fontSize:10,fontWeight:800,letterSpacing:3,color:'#FF2D78',marginBottom:12}}>SHOP BY CATEGORY</div>
-          <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(40px,5vw,64px)',letterSpacing:3}}>
+          <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(32px,5vw,64px)',letterSpacing:3}}>
             FIND YOUR <span style={{WebkitTextStroke:'2px rgba(255,255,255,0.5)',color:'transparent'}}>STYLE</span>
           </h2>
         </div>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))',gap:16}}>
-          {featured.map((cat,i)=>(
-            <div key={cat.page} onClick={()=>setPage(cat.page)} className="cat-card-3d"
-              style={{position:'relative',height:280,borderRadius:18,overflow:'hidden',cursor:'pointer',transition:'all 0.4s cubic-bezier(0.34,1.56,0.64,1)',transformStyle:'preserve-3d',border:'1px solid rgba(255,255,255,0.04)',animation:`fadeUp 0.5s ease ${i*0.06}s both`}}>
-              <img src={cat.img} alt={cat.title} style={{width:'100%',height:'100%',objectFit:'cover'}} onError={e=>e.target.style.display='none'}/>
-              <div style={{position:'absolute',inset:0,background:`linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.2) 60%,transparent 100%)`}}/>
-              <div style={{position:'absolute',inset:0,background:`${cat.color}00`,transition:'background 0.3s'}} className="cat-overlay"/>
-              <div style={{position:'absolute',bottom:20,left:16,right:16}}>
-                <div style={{fontSize:20,fontFamily:"'Bebas Neue',sans-serif",letterSpacing:2,color:'#fff',marginBottom:4}}>{cat.title}</div>
-                <div style={{fontSize:11,color:`${cat.color}`,fontWeight:700,letterSpacing:1}}>{cat.count}</div>
+        <div className="product-grid find-style-grid" style={{gridTemplateColumns:'repeat(auto-fill,minmax(clamp(140px, 44vw, 300px), 1fr))',gap:'clamp(10px, 2.5vw, 28px)'}}>          {featured.map((cat,i)=>(
+            <div key={cat.page} onClick={()=>setPage(cat.page)} className="card-3d cat-card"
+              style={{position:'relative',height:'clamp(180px, 36vw, 280px)',aspectRatio:'1/1.2',borderRadius:18,overflow:'hidden',cursor:'pointer',transformStyle:'preserve-3d',border:'1px solid rgba(255,255,255,0.04)',animation:`fadeUp 0.5s ease ${i*0.06}s both`}}>
+              <img src={cat.img} alt={cat.title} style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}} onError={(e)=>{e.target.style.opacity=0}}/>
+              <div style={{position:'absolute',inset:0,background:`linear-gradient(to top,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.15) 60%,transparent 100%)`}}/>
+              <div style={{position:'absolute',bottom:16,left:14,right:14}}>
+                <div className="cat-card-title" style={{fontSize:20,fontFamily:"'Bebas Neue',sans-serif",letterSpacing:2,color:'#fff',marginBottom:3}}>{cat.title}</div>
+                <div className="cat-card-count" style={{fontSize:11,color:`${cat.color}`,fontWeight:700,letterSpacing:1}}>{cat.count}</div>
               </div>
-              <div style={{position:'absolute',top:14,right:14,width:32,height:32,borderRadius:'50%',background:cat.color,display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:800,color:'#000',boxShadow:`0 4px 16px ${cat.color}60`}}>→</div>
+              <div className="cat-card-arrow" style={{position:'absolute',top:12,right:12,width:30,height:30,borderRadius:'50%',background:cat.color,display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:800,color:'#000',boxShadow:`0 4px 16px ${cat.color}60`}}>→</div>
             </div>
           ))}
         </div>
@@ -861,23 +1010,21 @@ function CategoryPage({pageId,onAddCart,onWishlist,wishlist}){
       {/* 3D HERO for each category */}
       <CategoryHero3D cfg={cfg} theme={theme} products={products}/>
       {/* SEARCH + FILTER */}
-      <div style={{padding:'32px 48px 0'}}>
-        <div style={{display:'flex',gap:12,marginBottom:20,alignItems:'center',flexWrap:'wrap'}}>
-          <div style={{position:'relative',flex:1,maxWidth:340}}>
+      <div style={{padding:'32px clamp(12px, 4vw, 48px) 0'}}>
+        <div className="search-filter-row" style={{display:'flex',gap:12,marginBottom:20,alignItems:'center',flexWrap:'wrap'}}>
+          <div style={{position:'relative',flex:1,minWidth:200,maxWidth:340}}>
             <span style={{position:'absolute',left:14,top:'50%',transform:'translateY(-50%)',fontSize:14}}>🔍</span>
-            <input value={search} onChange={e=>setSearch(e.target.value)} placeholder={`Search ${pageId} products...`}
-              style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${theme.primary}28`,borderRadius:10,padding:'11px 16px 11px 42px',color:'#fff',fontSize:13,outline:'none',fontFamily:"'Outfit',sans-serif",transition:'border-color 0.2s'}}
-              onFocus={e=>e.target.style.borderColor=`${theme.primary}60`}
-              onBlur={e=>e.target.style.borderColor=`${theme.primary}28`}/>
+            <input value={search} onChange={e=>setSearch(e.target.value)} placeholder={`Search ${pageId}...`}
+              style={{width:'100%',background:'rgba(255,255,255,0.05)',border:`1px solid ${theme.primary}28`,borderRadius:10,padding:'11px 16px 11px 42px',color:'#fff',fontSize:13,outline:'none',fontFamily:"'Outfit',sans-serif",transition:'border-color 0.2s'}}/>
           </div>
           <div style={{fontSize:12,color:'rgba(255,255,255,0.35)',fontWeight:600}}>{sorted.length} products</div>
         </div>
         <FilterBar theme={theme} filters={filters} setFilters={setFilters} products={products}/>
       </div>
       {/* GRID */}
-      <div style={{padding:'0 48px 80px',display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(230px,1fr))',gap:18}}>
+      <div className="product-grid">
         {sorted.map((p,i)=>(
-          <div key={p.id} style={{animation:`fadeUp 0.4s ease ${i*0.04}s both`}}>
+          <div key={p.id} className="product-card-container" style={{animation:`fadeUp 0.4s ease ${i*0.04}s both`}}>
             <ProductCard product={p} theme={theme} onAddCart={onAddCart} onWishlist={onWishlist} isWished={wishlist.includes(p.id)}/>
           </div>
         ))}
@@ -919,8 +1066,8 @@ function Footer({setPage}){
   ];
 
   return(
-    <footer style={{background:'linear-gradient(180deg,#080808 0%,#050505 100%)',borderTop:'1px solid rgba(255,255,255,0.05)',padding:'64px 48px 28px'}}>
-      <div style={{display:'grid',gridTemplateColumns:'2.2fr 1fr 1fr 1.1fr',gap:48,marginBottom:52}}>
+    <footer style={{background:'linear-gradient(180deg,#080808 0%,#050505 100%)',borderTop:'1px solid rgba(255,255,255,0.05)',padding:'64px clamp(20px, 5vw, 48px) 28px'}}>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',gap:48,marginBottom:52}}>
         {/* Brand col */}
         <div>
           <VividLogo theme={PAGE_THEMES.home} onClick={()=>{}} size={30}/>
@@ -1012,13 +1159,24 @@ function Footer({setPage}){
 /* ═══ MAIN APP ═══ */
 function App(){
   const [page,setPage]=useState('home');
+  const [scroll,setScroll]=useState(0);
   const [cart,setCart]=useState([]);
   const [wishlist,setWishlist]=useState([]);
   const [cartOpen,setCartOpen]=useState(false);
   const [wishlistOpen,setWishlistOpen]=useState(false);
   const [profileOpen,setProfileOpen]=useState(false);
   const [toast,setToast]=useState({msg:'',show:false});
+  const [menuOpen,setMenuOpen]=useState(false);
   const currentTheme=PAGE_THEMES[page]||PAGE_THEMES.home;
+
+  useEffect(()=>{
+    const handleScroll=()=>{
+      const h=document.documentElement.scrollHeight-window.innerHeight;
+      setScroll((window.scrollY/h)*100);
+    };
+    window.addEventListener('scroll',handleScroll);
+    return ()=>window.removeEventListener('scroll',handleScroll);
+  },[]);
 
   const showToast=(msg)=>{setToast({msg,show:true});setTimeout(()=>setToast(t=>({...t,show:false})),2500);};
   const addToCart=(product)=>{
@@ -1039,7 +1197,8 @@ function App(){
 
   return(
     <>
-      <Navbar currentPage={page} setPage={handleSetPage} cartCount={cartCount} wishCount={wishlist.length} setCartOpen={setCartOpen} setWishlistOpen={setWishlistOpen} setProfileOpen={setProfileOpen}/>
+      <div style={{position:'fixed',top:0,left:0,width:`${scroll}%`,height:3,background:`linear-gradient(90deg,${currentTheme.primary},${currentTheme.secondary})`,zIndex:1100,transition:'width 0.1s'}}/>
+      <Navbar currentPage={page} setPage={handleSetPage} cartCount={cartCount} wishCount={wishlist.length} setCartOpen={setCartOpen} setWishlistOpen={setWishlistOpen} setProfileOpen={setProfileOpen} setMenuOpen={setMenuOpen}/>
       <div style={{paddingTop:62}}>
         {page==='home'?<HomePage setPage={handleSetPage} theme={currentTheme}/>:<CategoryPage pageId={page} onAddCart={addToCart} onWishlist={toggleWishlist} wishlist={wishlist}/>}
       </div>
@@ -1048,6 +1207,7 @@ function App(){
       <WishlistModal open={wishlistOpen} setOpen={setWishlistOpen} wishlist={wishlist} setPage={handleSetPage} onAddCart={addToCart} theme={currentTheme}/>
       <ProfileModal open={profileOpen} setOpen={setProfileOpen}/>
       <Toast msg={toast.msg} show={toast.show} color={currentTheme.primary}/>
+      <MobileSidebar open={menuOpen} setOpen={setMenuOpen} setPage={handleSetPage} theme={currentTheme} currentPage={page}/>
       {/* WhatsApp Float */}
       <a href={`https://wa.me/${WA_NUMBER}?text=${WA_AUTO_MSG}`} target="_blank" rel="noopener noreferrer"
         style={{position:'fixed',bottom:24,right:24,background:'linear-gradient(135deg,#25D366,#128C7E)',color:'#fff',width:58,height:58,borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',textDecoration:'none',boxShadow:'0 8px 28px rgba(37,211,102,0.5)',zIndex:999,animation:'float 3s ease-in-out infinite'}}>
